@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>Public Cython APIs &mdash; SciPy v1.7.0.dev0+5ac5f63 Reference Guide</title>
+    
+    <link rel="stylesheet" type="text/css" href="../../_static/css/spc-bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../../_static/css/spc-extend.css">
+    <link rel="stylesheet" href="../../_static/scipy.css" type="text/css" >
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" >
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/js/copybutton.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" >
+    <link rel="search" title="Search" href="../../search.html" >
+    <link rel="top" title="SciPy v1.7.0.dev0+5ac5f63 Reference Guide" href="../../index.html" >
+    <link rel="next" title="Adding New Methods, Functions, and Classes" href="adding_new.html" >
+    <link rel="prev" title="Adding Cython to SciPy" href="cython.html" > 
+  </head>
+  <body>
+
+<div class="container">
+  <div class="top-scipy-org-logo-header">
+    <a href="../../index.html">
+      <img style="border: 0;" alt="SciPy" src="../../_static/img/scipy_org_logo.png"></a>
+    </div>
+  </div>
+</div>
+
+
+    <div class="container">
+      <div class="main">
+        
+	<div class="row-fluid">
+	  <div class="span12">
+	    <div class="spc-navbar">
+              
+    <ul class="nav nav-pills pull-left">
+        <li class="active"><a href="https://scipy.org/">SciPy.org</a></li>
+        <li class="active"><a href="https://docs.scipy.org/">Docs</a></li>
+	
+        <li class="active"><a href="../../index.html">SciPy v1.7.0.dev0+5ac5f63 Reference Guide</a></li>
+	 
+    </ul>
+              
+              
+    <ul class="nav nav-pills pull-right">
+      <li class="active">
+        <a href="../../genindex.html" title="General Index"
+           accesskey="I">index</a>
+      </li>
+      <li class="active">
+        <a href="../../py-modindex.html" title="Python Module Index"
+           >modules</a>
+      </li>
+      <li class="active">
+        <a href="adding_new.html" title="Adding New Methods, Functions, and Classes"
+           accesskey="N">next</a>
+      </li>
+      <li class="active">
+        <a href="cython.html" title="Adding Cython to SciPy"
+           accesskey="P">previous</a>
+      </li>
+    </ul>
+              
+	    </div>
+	  </div>
+	</div>
+        
+
+	<div class="row-fluid">
+          <div class="span9">
+            
+        <div class="bodywrapper">
+          <div class="body" id="spc-section-body">
+            
+  <div class="section" id="public-cython-apis">
+<span id="public-cython-api"></span><h1>Public Cython APIs<a class="headerlink" href="#public-cython-apis" title="Permalink to this headline">¶</a></h1>
+<p>As of Apr 2020, the following modules in SciPy expose functionality
+via a public <code class="docutils literal notranslate"><span class="pre">cdef</span></code> Cython API declarations:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">scipy.linalg.cython_blas</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">scipy.linalg.cython_lapack</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">scipy.optimize.cython_optimize</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">scipy.special.cython_special</span></code></p></li>
+</ul>
+<p>This uses <a class="reference external" href="cython-sharing-declarations">Cython’s declaration sharing features</a>, where shared <code class="docutils literal notranslate"><span class="pre">cdef</span></code> items are
+declared in <code class="docutils literal notranslate"><span class="pre">*.pxd</span></code> files that are distributed together with the
+corresponding DLL/SO files in binary SciPy installations.</p>
+<div class="section" id="application-binary-interface">
+<h2>Application Binary Interface<a class="headerlink" href="#application-binary-interface" title="Permalink to this headline">¶</a></h2>
+<p>Using these features in SciPy however requires SciPy contributors to
+take additional care with regard to maintaining Application Binary
+Interface (ABI) stability. This is similar to developing libraries in
+C, and different from how backward compatibility works in pure Python.</p>
+<p>The main difference to Python originates from the fact that the
+declarations in the header <code class="docutils literal notranslate"><span class="pre">.pxd</span></code> files are used when code written
+by users is <em>compiled</em>, but they must also match with what is
+available in SciPy when the user code is <em>imported</em>.</p>
+<p>User code may be compiled with one version of SciPy, and the compiled
+binary (which uses the binary interface declared in the <code class="docutils literal notranslate"><span class="pre">.pxd</span></code>
+files) can be used with a different SciPy version installed on the
+system. If the interfaces are not compatible, either an
+exception is raised or runtime memory corruption and crash ensue.</p>
+<p>At import time, Cython checks that signatures of functions in the
+installed SciPy SO/DLL file match the one in the <code class="docutils literal notranslate"><span class="pre">.pxd</span></code> file used by
+the user during compilation, and raises a Python exception if there is
+a mismatch.  If the SciPy code is structured correctly (see below),
+this check is performed only for functions that are actually imported
+in the user code.</p>
+<p>We rely on this feature to provide a runtime safety check, which makes
+it easier for the users to detect incompatible SciPy versions via
+Python exceptions, instead of hard-to-trace runtime crashes.</p>
+</div>
+<div class="section" id="abi-stability-aim">
+<h2>ABI stability aim<a class="headerlink" href="#abi-stability-aim" title="Permalink to this headline">¶</a></h2>
+<p>SciPy aims to maintain ABI stability in Cython code, in the following
+sense:</p>
+<blockquote>
+<div><p>Binaries produced by compiling user source with one version of
+SciPy, are compatible with any other SciPy version with which the
+source code can be compiled.</p>
+<p>Trying to use an incompatible version of SciPy at runtime will
+result in a Python exception at user module import time.</p>
+<p>Trying to use an incompatible version of SciPy at compile time
+will result in a Cython error.</p>
+</div></blockquote>
+<p>This means that users can use any compatible version of SciPy to
+compile binaries without having to pay attention to ABI, i.e.,</p>
+<blockquote>
+<div><p>ABI compatibility = API compatibility</p>
+</div></blockquote>
+<p>Cython API backward/forward compatibility will be handled with a
+similar deprecation/removal policy as for the Python API, see
+<a class="reference internal" href="../core-dev/index.html#deprecations"><span class="std std-ref">Deprecations</span></a>.</p>
+</div>
+<div class="section" id="implementing-abi-stability-in-scipy">
+<h2>Implementing ABI stability in SciPy<a class="headerlink" href="#implementing-abi-stability-in-scipy" title="Permalink to this headline">¶</a></h2>
+<p>The following rules in development of Cython APIs in SciPy are
+necessary to maintain the ABI stability aim above:</p>
+<ul>
+<li><p>Adding new <code class="docutils literal notranslate"><span class="pre">cdef</span></code> declarations (functions, structs, types, etc.)
+<strong>is allowed</strong>.</p></li>
+<li><p>Removing <code class="docutils literal notranslate"><span class="pre">cdef</span></code> declarations <strong>is allowed</strong>, but <strong>should follow</strong>
+general deprecation/removal policy.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cdef</span></code> declarations of functions <strong>may be changed</strong>.</p>
+<p>However, changes result in a backward incompatible API change which
+breaks any code using the changed signature, and <strong>should follow</strong>
+general deprecation/removal policy.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cdef</span></code> declarations of anything else (e.g. <code class="docutils literal notranslate"><span class="pre">struct</span></code>, <code class="docutils literal notranslate"><span class="pre">enum</span></code>,
+and types) are <strong>final</strong>.  Once a declaration is exposed in the
+public Cython API in a released SciPy version, <strong>it must not be
+changed</strong>.</p>
+<p>If changes are necessary, they need to be carried out by adding
+new declarations with different names, and removing old ones.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cdef</span></code> classes are <strong>not allowed</strong> in the public APIs (TBD:
+backward compatibility of cdef classes needs more research, but must
+not be allowed when we are not sure)</p></li>
+<li><p>For each public API module (as in <code class="docutils literal notranslate"><span class="pre">scipy.linalg.cython_blas</span></code>), use
+a single interface <code class="docutils literal notranslate"><span class="pre">.pxd</span></code> declaration file.</p>
+<p>The public interface declaration file <strong>should not</strong> contain
+<code class="docutils literal notranslate"><span class="pre">cimport</span></code> statements.  If it does, Cython’s signature check will
+check all of the cimported functions, not only the ones that are
+used by user code, so that changing one of them breaks the whole
+API.</p>
+</li>
+<li><p>If data structures are necessary, <strong>prefer opaque structs</strong> in the
+public API.  The interface declarations should not contain any
+declarations of struct members.  Allocation, freeing, and attribute
+access of data structures should be done with functions.</p></li>
+</ul>
+</div>
+<div class="section" id="deprecating-public-cython-apis">
+<span id="deprecating-public-cython-api"></span><h2>Deprecating public Cython APIs<a class="headerlink" href="#deprecating-public-cython-apis" title="Permalink to this headline">¶</a></h2>
+<p>To deprecate a public Cython API function, for example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># scipy/something/foo.pxd</span>
+<span class="n">cdef</span> <span class="n">public</span> <span class="nb">int</span> <span class="n">somefunc</span><span class="p">()</span>
+
+<span class="c1"># scipy/something/foo.pyx</span>
+<span class="n">cdef</span> <span class="n">public</span> <span class="nb">int</span> <span class="n">somefunc</span><span class="p">():</span>
+    <span class="k">return</span> <span class="mi">42</span>
+</pre></div>
+</div>
+<p>you can add use the <code class="docutils literal notranslate"><span class="pre">scipy._lib.deprecation.deprecate_cython_api</span></code>
+function to do the deprecations at the end of the corresponding
+<code class="docutils literal notranslate"><span class="pre">.pyx</span></code> file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># scipy/something/foo.pyx</span>
+<span class="n">cdef</span> <span class="n">public</span> <span class="nb">int</span> <span class="n">somefunc</span><span class="p">():</span>
+    <span class="k">return</span> <span class="mi">42</span>
+
+<span class="kn">from</span> <span class="nn">scipy._lib.deprecation</span> <span class="kn">import</span> <span class="n">deprecate_cython_api</span>
+<span class="kn">import</span> <span class="nn">scipy.something.foo</span> <span class="k">as</span> <span class="nn">mod</span>
+<span class="n">deprecate_cython_api</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="s2">&quot;somefunc&quot;</span><span class="p">,</span> <span class="n">new_name</span><span class="o">=</span><span class="s2">&quot;scipy.something.newfunc&quot;</span><span class="p">,</span>
+                     <span class="n">message</span><span class="o">=</span><span class="s2">&quot;Deprecated in Scipy 1.5.0&quot;</span><span class="p">)</span>
+<span class="k">del</span> <span class="n">deprecate_cython_api</span><span class="p">,</span> <span class="n">mod</span>
+</pre></div>
+</div>
+<p>After this, Cython modules that <code class="docutils literal notranslate"><span class="pre">cimport</span> <span class="pre">somefunc</span></code>, will emit a
+<em class="xref py py-obj">DeprecationWarning</em> at import time.</p>
+<p>There is no way to deprecate Cython data structures and types.  They
+can be however removed after all functions using them in the API are
+removed, having gone through the deprecation cycle.</p>
+<p>Whole Cython modules can be deprecated similarly as Python modules, by
+emitting a <em class="xref py py-obj">DeprecationWarning</em> on the top-level.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+          </div>
+      <div class="spc-rightsidebar span3">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Public Cython APIs</a><ul>
+<li><a class="reference internal" href="#application-binary-interface">Application Binary Interface</a></li>
+<li><a class="reference internal" href="#abi-stability-aim">ABI stability aim</a></li>
+<li><a class="reference internal" href="#implementing-abi-stability-in-scipy">Implementing ABI stability in SciPy</a></li>
+<li><a class="reference internal" href="#deprecating-public-cython-apis">Deprecating public Cython APIs</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="cython.html"
+                        title="previous chapter">Adding Cython to SciPy</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="adding_new.html"
+                        title="next chapter">Adding New Methods, Functions, and Classes</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h4>Quick search</h4>
+    <div>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" style="width: inherit;" name="q" />
+      <input type="submit" value="search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container container-navbar-bottom">
+      <div class="spc-navbar">
+        
+      </div>
+    </div>
+    <div class="container">
+    <div class="footer">
+    <div class="row-fluid">
+    <ul class="inline pull-left">
+      <li>
+        &copy; Copyright 2008-2021, The SciPy community.
+      </li>
+      <li>
+      Last updated on Feb 20, 2021.
+      </li>
+      <li>
+      Created using <a href="https://www.sphinx-doc.org">Sphinx</a> 3.5.1.
+      </li>
+    </ul>
+    </div>
+    </div>
+    </div>
+  </body>
+</html>

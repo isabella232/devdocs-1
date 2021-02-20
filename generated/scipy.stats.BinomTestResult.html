@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>scipy.stats.BinomTestResult &mdash; SciPy v1.7.0.dev0+5ac5f63 Reference Guide</title>
+    
+    <link rel="stylesheet" type="text/css" href="../_static/css/spc-bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../_static/css/spc-extend.css">
+    <link rel="stylesheet" href="../_static/scipy.css" type="text/css" >
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" >
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/js/copybutton.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" >
+    <link rel="search" title="Search" href="../search.html" >
+    <link rel="top" title="SciPy v1.7.0.dev0+5ac5f63 Reference Guide" href="../index.html" >
+    <link rel="up" title="Statistical functions (scipy.stats)" href="../stats.html" >
+    <link rel="next" title="scipy.stats.BinomTestResult.proportion_ci" href="scipy.stats.BinomTestResult.proportion_ci.html" >
+    <link rel="prev" title="scipy.stats.normaltest" href="scipy.stats.normaltest.html" > 
+  </head>
+  <body>
+
+<div class="container">
+  <div class="top-scipy-org-logo-header">
+    <a href="../index.html">
+      <img style="border: 0;" alt="SciPy" src="../_static/img/scipy_org_logo.png"></a>
+    </div>
+  </div>
+</div>
+
+
+    <div class="container">
+      <div class="main">
+        
+	<div class="row-fluid">
+	  <div class="span12">
+	    <div class="spc-navbar">
+              
+    <ul class="nav nav-pills pull-left">
+        <li class="active"><a href="https://scipy.org/">SciPy.org</a></li>
+        <li class="active"><a href="https://docs.scipy.org/">Docs</a></li>
+	
+        <li class="active"><a href="../index.html">SciPy v1.7.0.dev0+5ac5f63 Reference Guide</a></li>
+	
+          <li class="active"><a href="../stats.html" accesskey="U">Statistical functions (<code class="xref py py-mod docutils literal notranslate"><span class="pre">scipy.stats</span></code>)</a></li> 
+    </ul>
+              
+              
+    <ul class="nav nav-pills pull-right">
+      <li class="active">
+        <a href="../genindex.html" title="General Index"
+           accesskey="I">index</a>
+      </li>
+      <li class="active">
+        <a href="../py-modindex.html" title="Python Module Index"
+           >modules</a>
+      </li>
+      <li class="active">
+        <a href="scipy.stats.BinomTestResult.proportion_ci.html" title="scipy.stats.BinomTestResult.proportion_ci"
+           accesskey="N">next</a>
+      </li>
+      <li class="active">
+        <a href="scipy.stats.normaltest.html" title="scipy.stats.normaltest"
+           accesskey="P">previous</a>
+      </li>
+    </ul>
+              
+	    </div>
+	  </div>
+	</div>
+        
+
+	<div class="row-fluid">
+          <div class="span9">
+            
+        <div class="bodywrapper">
+          <div class="body" id="spc-section-body">
+            
+  <div class="section" id="scipy-stats-binomtestresult">
+<h1>scipy.stats.BinomTestResult<a class="headerlink" href="#scipy-stats-binomtestresult" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="scipy.stats.BinomTestResult">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">scipy.stats.</span></code><code class="sig-name descname"><span class="pre">BinomTestResult</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alternative</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pvalue</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">proportion_estimate</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/scipy/scipy/blob/5ac5f63/scipy/stats/_binomtest.py#L19-L120"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scipy.stats.BinomTestResult" title="Permalink to this definition">¶</a></dt>
+<dd><p>Result of <a class="reference internal" href="scipy.stats.binomtest.html#scipy.stats.binomtest" title="scipy.stats.binomtest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scipy.stats.binomtest</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>k</strong><span class="classifier">int</span></dt><dd><p>The number of successes (copied from <a class="reference internal" href="scipy.stats.binomtest.html#scipy.stats.binomtest" title="scipy.stats.binomtest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">binomtest</span></code></a> input).</p>
+</dd>
+<dt><strong>n</strong><span class="classifier">int</span></dt><dd><p>The number of trials (copied from <a class="reference internal" href="scipy.stats.binomtest.html#scipy.stats.binomtest" title="scipy.stats.binomtest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">binomtest</span></code></a> input).</p>
+</dd>
+<dt><strong>alternative</strong><span class="classifier">str</span></dt><dd><p>Indicates the alternative hypothesis specified in the input
+to <a class="reference internal" href="scipy.stats.binomtest.html#scipy.stats.binomtest" title="scipy.stats.binomtest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">binomtest</span></code></a>.  It will be one of <code class="docutils literal notranslate"><span class="pre">'two-sided'</span></code>, <code class="docutils literal notranslate"><span class="pre">'greater'</span></code>,
+or <code class="docutils literal notranslate"><span class="pre">'less'</span></code>.</p>
+</dd>
+<dt><strong>pvalue</strong><span class="classifier">float</span></dt><dd><p>The p-value of the hypothesis test.</p>
+</dd>
+<dt><strong>proportion_estimate</strong><span class="classifier">float</span></dt><dd><p>The estimate of the proportion of successes.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="scipy.stats.BinomTestResult.proportion_ci.html#scipy.stats.BinomTestResult.proportion_ci" title="scipy.stats.BinomTestResult.proportion_ci"><code class="xref py py-obj docutils literal notranslate"><span class="pre">proportion_ci</span></code></a>([confidence_level, method])</p></td>
+<td><p>Compute the confidence interval for the estimated proportion.</p></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+          </div>
+      <div class="spc-rightsidebar span3">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="scipy.stats.normaltest.html"
+                        title="previous chapter">scipy.stats.normaltest</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="scipy.stats.BinomTestResult.proportion_ci.html"
+                        title="next chapter">scipy.stats.BinomTestResult.proportion_ci</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h4>Quick search</h4>
+    <div>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" style="width: inherit;" name="q" />
+      <input type="submit" value="search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container container-navbar-bottom">
+      <div class="spc-navbar">
+        
+      </div>
+    </div>
+    <div class="container">
+    <div class="footer">
+    <div class="row-fluid">
+    <ul class="inline pull-left">
+      <li>
+        &copy; Copyright 2008-2021, The SciPy community.
+      </li>
+      <li>
+      Last updated on Feb 20, 2021.
+      </li>
+      <li>
+      Created using <a href="https://www.sphinx-doc.org">Sphinx</a> 3.5.1.
+      </li>
+    </ul>
+    </div>
+    </div>
+    </div>
+  </body>
+</html>

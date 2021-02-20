@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>SciPy Roadmap &mdash; SciPy v1.7.0.dev0+5ac5f63 Reference Guide</title>
+    
+    <link rel="stylesheet" type="text/css" href="_static/css/spc-bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="_static/css/spc-extend.css">
+    <link rel="stylesheet" href="_static/scipy.css" type="text/css" >
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" >
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/js/copybutton.js"></script>
+    <link rel="index" title="Index" href="genindex.html" >
+    <link rel="search" title="Search" href="search.html" >
+    <link rel="top" title="SciPy v1.7.0.dev0+5ac5f63 Reference Guide" href="index.html" >
+    <link rel="next" title="Detailed SciPy Roadmap" href="roadmap-detailed.html" >
+    <link rel="prev" title="SciPy contributor guide" href="dev/contributor/contributor_toc.html" > 
+  </head>
+  <body>
+
+<div class="container">
+  <div class="top-scipy-org-logo-header">
+    <a href="index.html">
+      <img style="border: 0;" alt="SciPy" src="_static/img/scipy_org_logo.png"></a>
+    </div>
+  </div>
+</div>
+
+
+    <div class="container">
+      <div class="main">
+        
+	<div class="row-fluid">
+	  <div class="span12">
+	    <div class="spc-navbar">
+              
+    <ul class="nav nav-pills pull-left">
+        <li class="active"><a href="https://scipy.org/">SciPy.org</a></li>
+        <li class="active"><a href="https://docs.scipy.org/">Docs</a></li>
+	
+        <li class="active"><a href="index.html">SciPy v1.7.0.dev0+5ac5f63 Reference Guide</a></li>
+	 
+    </ul>
+              
+              
+    <ul class="nav nav-pills pull-right">
+      <li class="active">
+        <a href="genindex.html" title="General Index"
+           accesskey="I">index</a>
+      </li>
+      <li class="active">
+        <a href="py-modindex.html" title="Python Module Index"
+           >modules</a>
+      </li>
+      <li class="active">
+        <a href="roadmap-detailed.html" title="Detailed SciPy Roadmap"
+           accesskey="N">next</a>
+      </li>
+      <li class="active">
+        <a href="dev/contributor/contributor_toc.html" title="SciPy contributor guide"
+           accesskey="P">previous</a>
+      </li>
+    </ul>
+              
+	    </div>
+	  </div>
+	</div>
+        
+
+	<div class="row-fluid">
+          <div class="span9">
+            
+        <div class="bodywrapper">
+          <div class="body" id="spc-section-body">
+            
+  <div class="section" id="scipy-roadmap">
+<span id="id1"></span><h1>SciPy Roadmap<a class="headerlink" href="#scipy-roadmap" title="Permalink to this headline">¶</a></h1>
+<p>This roadmap page contains only the most important ideas and needs for SciPy
+going forward.  For a more detailed roadmap, including per-subpackage status,
+many more ideas, API stability and more, see <a class="reference internal" href="roadmap-detailed.html#scipy-roadmap-detailed"><span class="std std-ref">Detailed SciPy Roadmap</span></a>.</p>
+<div class="section" id="support-for-distributed-arrays-and-gpu-arrays">
+<h2>Support for distributed arrays and GPU arrays<a class="headerlink" href="#support-for-distributed-arrays-and-gpu-arrays" title="Permalink to this headline">¶</a></h2>
+<p>NumPy has split its API from its execution engine with
+<code class="docutils literal notranslate"><span class="pre">__array_function__</span></code> and <code class="docutils literal notranslate"><span class="pre">__array_ufunc__</span></code>.  This will enable parts of SciPy
+to accept distributed arrays (e.g. <code class="docutils literal notranslate"><span class="pre">dask.array.Array</span></code>) and GPU arrays (e.g.
+<code class="docutils literal notranslate"><span class="pre">cupy.ndarray</span></code>) that implement the <code class="docutils literal notranslate"><span class="pre">ndarray</span></code> interface.  At the moment it is
+not yet clear which algorithms will work out of the box, and if there are
+significant performance gains when they do.  We want to create a map of which
+parts of the SciPy API work, and improve support over time.</p>
+<p>In addition to making use of NumPy protocols like <code class="docutils literal notranslate"><span class="pre">__array_function__</span></code>, we can
+make use of these protocols in SciPy as well.  That will make it possible to
+(re)implement SciPy functions like, e.g., those in <code class="docutils literal notranslate"><span class="pre">scipy.signal</span></code> for Dask
+or GPU arrays (see
+<a class="reference external" href="http://www.numpy.org/neps/nep-0018-array-function-protocol.html#use-outside-of-numpy">NEP 18 - use outside of NumPy</a>).  NumPy’s features in this areas are still evolving,
+see e.g. <a class="reference external" href="https://numpy.org/neps/nep-0037-array-module.html">NEP 37 - A dispatch protocol for NumPy-like modules</a>,
+and SciPy is an important “client” for those features.</p>
+</div>
+<div class="section" id="performance-improvements">
+<h2>Performance improvements<a class="headerlink" href="#performance-improvements" title="Permalink to this headline">¶</a></h2>
+<p>Speed improvements, lower memory usage and the ability to parallelize
+algorithms are beneficial to most science domains and use cases.  We have
+established an API design pattern for multiprocessing - using the <code class="docutils literal notranslate"><span class="pre">workers</span></code>
+keyword - that can be adopted in many more functions.</p>
+<p>Enabling the use of an accelerator like Pythran, possibly via Transonic, and
+making it easier for users to use Numba’s <code class="docutils literal notranslate"><span class="pre">&#64;njit</span></code> in their code that relies
+on SciPy functionality would unlock a lot of performance gain.  That needs a
+strategy though, all solutions are still maturing (see for example
+<a class="reference external" href="https://fluiddyn.bitbucket.io/transonic-vision.html">this overview</a>).</p>
+<p>Finally, many individual functions can be optimized for performance.
+<code class="docutils literal notranslate"><span class="pre">scipy.optimize</span></code> and <code class="docutils literal notranslate"><span class="pre">scipy.interpolate</span></code> functions are particularly often
+requested in this respect.</p>
+</div>
+<div class="section" id="statistics-enhancements">
+<h2>Statistics enhancements<a class="headerlink" href="#statistics-enhancements" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference internal" href="stats.html#module-scipy.stats" title="scipy.stats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scipy.stats</span></code></a> enhancements listed in the <a class="reference internal" href="roadmap-detailed.html#scipy-roadmap-detailed"><span class="std std-ref">Detailed SciPy Roadmap</span></a> are of
+particularly high importance to the project.</p>
+<ul class="simple">
+<li><p>Improve the options for fitting a probability distribution to data.</p></li>
+<li><p>Expand the set of hypothesis tests.  In particular, include all the basic
+variations of analysis of variance.</p></li>
+<li><p>Add confidence intervals for all statistical tests.</p></li>
+</ul>
+</div>
+<div class="section" id="support-for-more-hardware-platforms">
+<h2>Support for more hardware platforms<a class="headerlink" href="#support-for-more-hardware-platforms" title="Permalink to this headline">¶</a></h2>
+<p>SciPy now has continuous integration for ARM64 (or <code class="docutils literal notranslate"><span class="pre">aarch64</span></code>) and POWER8/9
+(or <code class="docutils literal notranslate"><span class="pre">ppc64le</span></code>), and binaries are available via
+<a class="reference external" href="https://github.com/conda-forge/miniforge">Miniforge</a>.  Wheels on PyPI for
+these platforms are now also possible (with the <code class="docutils literal notranslate"><span class="pre">manylinux2014</span></code> standard),
+and requests for those are becoming more frequent.</p>
+<p>Additionally, having IBM Z (or <code class="docutils literal notranslate"><span class="pre">s390x</span></code>) in CI is now possible with TravisCI
+but not yet done - and <code class="docutils literal notranslate"><span class="pre">manylinux2014</span></code> wheels for that platform are also
+possible then.  Finally, resolving open AIX build issues would help users.</p>
+</div>
+<div class="section" id="implement-sparse-arrays-in-addition-to-sparse-matrices">
+<h2>Implement sparse arrays in addition to sparse matrices<a class="headerlink" href="#implement-sparse-arrays-in-addition-to-sparse-matrices" title="Permalink to this headline">¶</a></h2>
+<p>The sparse matrix formats are mostly feature-complete, however the main issue
+is that they act like <code class="docutils literal notranslate"><span class="pre">numpy.matrix</span></code> (which will be deprecated in NumPy at
+some point).  What we want is sparse <em>arrays</em> that act like <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>.
+This is being worked on in <a class="reference external" href="https://github.com/pydata/sparse">https://github.com/pydata/sparse</a>, which is quite far
+along.  The tentative plan is:</p>
+<ul class="simple">
+<li><p>Start depending on <code class="docutils literal notranslate"><span class="pre">pydata/sparse</span></code> once it’s feature-complete enough (it
+still needs a CSC/CSR equivalent) and okay performance-wise.</p></li>
+<li><p>Indicate in the documentation that for new code users should prefer
+<code class="docutils literal notranslate"><span class="pre">pydata/sparse</span></code> over sparse matrices.</p></li>
+<li><p>When NumPy deprecates <code class="docutils literal notranslate"><span class="pre">numpy.matrix</span></code>, vendor that or maintain it as a
+stand-alone package.</p></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+          </div>
+      <div class="spc-rightsidebar span3">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">SciPy Roadmap</a><ul>
+<li><a class="reference internal" href="#support-for-distributed-arrays-and-gpu-arrays">Support for distributed arrays and GPU arrays</a></li>
+<li><a class="reference internal" href="#performance-improvements">Performance improvements</a></li>
+<li><a class="reference internal" href="#statistics-enhancements">Statistics enhancements</a></li>
+<li><a class="reference internal" href="#support-for-more-hardware-platforms">Support for more hardware platforms</a></li>
+<li><a class="reference internal" href="#implement-sparse-arrays-in-addition-to-sparse-matrices">Implement sparse arrays in addition to sparse matrices</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="dev/contributor/contributor_toc.html"
+                        title="previous chapter">SciPy contributor guide</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="roadmap-detailed.html"
+                        title="next chapter">Detailed SciPy Roadmap</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h4>Quick search</h4>
+    <div>
+    <form class="search" action="search.html" method="get">
+      <input type="text" style="width: inherit;" name="q" />
+      <input type="submit" value="search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container container-navbar-bottom">
+      <div class="spc-navbar">
+        
+      </div>
+    </div>
+    <div class="container">
+    <div class="footer">
+    <div class="row-fluid">
+    <ul class="inline pull-left">
+      <li>
+        &copy; Copyright 2008-2021, The SciPy community.
+      </li>
+      <li>
+      Last updated on Feb 20, 2021.
+      </li>
+      <li>
+      Created using <a href="https://www.sphinx-doc.org">Sphinx</a> 3.5.1.
+      </li>
+    </ul>
+    </div>
+    </div>
+    </div>
+  </body>
+</html>

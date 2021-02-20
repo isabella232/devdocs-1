@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>Building from sources &mdash; SciPy v1.7.0.dev0+5ac5f63 Reference Guide</title>
+    
+    <link rel="stylesheet" type="text/css" href="../_static/css/spc-bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../_static/css/spc-extend.css">
+    <link rel="stylesheet" href="../_static/scipy.css" type="text/css" >
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" >
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/js/copybutton.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" >
+    <link rel="search" title="Search" href="../search.html" >
+    <link rel="top" title="SciPy v1.7.0.dev0+5ac5f63 Reference Guide" href="../index.html" > 
+  </head>
+  <body>
+
+<div class="container">
+  <div class="top-scipy-org-logo-header">
+    <a href="../index.html">
+      <img style="border: 0;" alt="SciPy" src="../_static/img/scipy_org_logo.png"></a>
+    </div>
+  </div>
+</div>
+
+
+    <div class="container">
+      <div class="main">
+        
+	<div class="row-fluid">
+	  <div class="span12">
+	    <div class="spc-navbar">
+              
+    <ul class="nav nav-pills pull-left">
+        <li class="active"><a href="https://scipy.org/">SciPy.org</a></li>
+        <li class="active"><a href="https://docs.scipy.org/">Docs</a></li>
+	
+        <li class="active"><a href="../index.html">SciPy v1.7.0.dev0+5ac5f63 Reference Guide</a></li>
+	 
+    </ul>
+              
+              
+    <ul class="nav nav-pills pull-right">
+      <li class="active">
+        <a href="../genindex.html" title="General Index"
+           accesskey="I">index</a>
+      </li>
+      <li class="active">
+        <a href="../py-modindex.html" title="Python Module Index"
+           >modules</a>
+      </li>
+    </ul>
+              
+	    </div>
+	  </div>
+	</div>
+        
+
+	<div class="row-fluid">
+          <div class="span9">
+            
+        <div class="bodywrapper">
+          <div class="body" id="spc-section-body">
+            
+  <div class="section" id="building-from-sources">
+<span id="building"></span><h1>Building from sources<a class="headerlink" href="#building-from-sources" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you are only trying to install SciPy, see
+<a class="reference internal" href="../install_upgrade.html"><span class="doc">Installing and upgrading</span></a>.</p>
+</div>
+<p>Build instructions for different operating systems and an FAQ:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="linux.html">Building from source on Linux</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="linux.html#generic-instructions">Generic instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linux.html#specific-instructions">Specific instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linux.html#fortran-abi-mismatch">Fortran ABI mismatch</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="windows.html">Building from source on Windows</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="windows.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="windows.html#building-the-released-scipy">Building the Released SciPy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="windows.html#building-against-an-older-numpy-version">Building Against an Older NumPy Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="windows.html#additional-resources">Additional Resources</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="macosx.html">Building from source on Mac OSX</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="macosx.html#python">Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="macosx.html#compilers-c-c-fortran-cython">Compilers (C/C++/FORTRAN/Cython)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="macosx.html#blas-lapack-installation">BLAS/LAPACK Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="macosx.html#version-specific-notes">Version-specific notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="macosx.html#obtaining-and-building-numpy-and-scipy">Obtaining and Building NumPy and SciPy</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Build/Install FAQ</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="reference-for-build-options">
+<h1>Reference for build options<a class="headerlink" href="#reference-for-build-options" title="Permalink to this headline">¶</a></h1>
+<p>Scipy has several tunable build-time options, which can be set.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">site.cfg</span></code>: build-time library configuration file, see
+<code class="docutils literal notranslate"><span class="pre">site.cfg.example</span></code> for details.</p></li>
+<li><p>Environment variables <code class="docutils literal notranslate"><span class="pre">NPY_LAPACK_ORDER</span></code>, <code class="docutils literal notranslate"><span class="pre">NPY_BLAS_ORDER</span></code>, <code class="docutils literal notranslate"><span class="pre">OPENBLAS</span></code>,
+<code class="docutils literal notranslate"><span class="pre">ATLAS</span></code>, etc., also controlling library configuration.
+See <a class="reference external" href="numpy-blasdoc">Numpy documentation</a> for more details.</p></li>
+<li><p>Environment variable <code class="docutils literal notranslate"><span class="pre">NPY_USE_BLAS_ILP64=1</span></code>: build using 64-bit
+integer size (ILP64) BLAS+LAPACK libraries.</p>
+<p>Note that even when this is set, Scipy requires <em>also</em> 32-bit
+integer size (LP64) BLAS+LAPACK libraries to be available and
+configured. This is because only some components in Scipy make use
+of the 64-bit capabilities.</p>
+</li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+          </div>
+      <div class="spc-rightsidebar span3">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Building from sources</a></li>
+<li><a class="reference internal" href="#reference-for-build-options">Reference for build options</a></li>
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h4>Quick search</h4>
+    <div>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" style="width: inherit;" name="q" />
+      <input type="submit" value="search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container container-navbar-bottom">
+      <div class="spc-navbar">
+        
+      </div>
+    </div>
+    <div class="container">
+    <div class="footer">
+    <div class="row-fluid">
+    <ul class="inline pull-left">
+      <li>
+        &copy; Copyright 2008-2021, The SciPy community.
+      </li>
+      <li>
+      Last updated on Feb 20, 2021.
+      </li>
+      <li>
+      Created using <a href="https://www.sphinx-doc.org">Sphinx</a> 3.5.1.
+      </li>
+    </ul>
+    </div>
+    </div>
+    </div>
+  </body>
+</html>

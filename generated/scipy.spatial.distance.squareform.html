@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>scipy.spatial.distance.squareform &mdash; SciPy v1.7.0.dev0+5ac5f63 Reference Guide</title>
+    
+    <link rel="stylesheet" type="text/css" href="../_static/css/spc-bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../_static/css/spc-extend.css">
+    <link rel="stylesheet" href="../_static/scipy.css" type="text/css" >
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" >
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/scipy-mathjax/MathJax.js?config=scipy-mathjax"></script>
+    <script type="text/javascript" src="../_static/js/copybutton.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" >
+    <link rel="search" title="Search" href="../search.html" >
+    <link rel="top" title="SciPy v1.7.0.dev0+5ac5f63 Reference Guide" href="../index.html" >
+    <link rel="up" title="Distance computations (scipy.spatial.distance)" href="../spatial.distance.html" >
+    <link rel="next" title="scipy.spatial.distance.directed_hausdorff" href="scipy.spatial.distance.directed_hausdorff.html" >
+    <link rel="prev" title="scipy.spatial.distance.cdist" href="scipy.spatial.distance.cdist.html" > 
+  </head>
+  <body>
+
+<div class="container">
+  <div class="top-scipy-org-logo-header">
+    <a href="../index.html">
+      <img style="border: 0;" alt="SciPy" src="../_static/img/scipy_org_logo.png"></a>
+    </div>
+  </div>
+</div>
+
+
+    <div class="container">
+      <div class="main">
+        
+	<div class="row-fluid">
+	  <div class="span12">
+	    <div class="spc-navbar">
+              
+    <ul class="nav nav-pills pull-left">
+        <li class="active"><a href="https://scipy.org/">SciPy.org</a></li>
+        <li class="active"><a href="https://docs.scipy.org/">Docs</a></li>
+	
+        <li class="active"><a href="../index.html">SciPy v1.7.0.dev0+5ac5f63 Reference Guide</a></li>
+	
+          <li class="active"><a href="../spatial.html" >Spatial algorithms and data structures (<code class="xref py py-mod docutils literal notranslate"><span class="pre">scipy.spatial</span></code>)</a></li>
+          <li class="active"><a href="../spatial.distance.html" accesskey="U">Distance computations (<code class="xref py py-mod docutils literal notranslate"><span class="pre">scipy.spatial.distance</span></code>)</a></li> 
+    </ul>
+              
+              
+    <ul class="nav nav-pills pull-right">
+      <li class="active">
+        <a href="../genindex.html" title="General Index"
+           accesskey="I">index</a>
+      </li>
+      <li class="active">
+        <a href="../py-modindex.html" title="Python Module Index"
+           >modules</a>
+      </li>
+      <li class="active">
+        <a href="scipy.spatial.distance.directed_hausdorff.html" title="scipy.spatial.distance.directed_hausdorff"
+           accesskey="N">next</a>
+      </li>
+      <li class="active">
+        <a href="scipy.spatial.distance.cdist.html" title="scipy.spatial.distance.cdist"
+           accesskey="P">previous</a>
+      </li>
+    </ul>
+              
+	    </div>
+	  </div>
+	</div>
+        
+
+	<div class="row-fluid">
+          <div class="span9">
+            
+        <div class="bodywrapper">
+          <div class="body" id="spc-section-body">
+            
+  <div class="section" id="scipy-spatial-distance-squareform">
+<h1>scipy.spatial.distance.squareform<a class="headerlink" href="#scipy-spatial-distance-squareform" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt id="scipy.spatial.distance.squareform">
+<code class="sig-prename descclassname"><span class="pre">scipy.spatial.distance.</span></code><code class="sig-name descname"><span class="pre">squareform</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'no'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">checks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/scipy/scipy/blob/5ac5f63/scipy/spatial/distance.py#L2119-L2236"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scipy.spatial.distance.squareform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a vector-form distance vector to a square-form distance
+matrix, and vice-versa.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">ndarray</span></dt><dd><p>Either a condensed or redundant distance matrix.</p>
+</dd>
+<dt><strong>force</strong><span class="classifier">str, optional</span></dt><dd><p>As with MATLAB(TM), if force is equal to <code class="docutils literal notranslate"><span class="pre">'tovector'</span></code> or
+<code class="docutils literal notranslate"><span class="pre">'tomatrix'</span></code>, the input will be treated as a distance matrix or
+distance vector respectively.</p>
+</dd>
+<dt><strong>checks</strong><span class="classifier">bool, optional</span></dt><dd><p>If set to False, no checks will be made for matrix
+symmetry nor zero diagonals. This is useful if it is known that
+<code class="docutils literal notranslate"><span class="pre">X</span> <span class="pre">-</span> <span class="pre">X.T1</span></code> is small and <code class="docutils literal notranslate"><span class="pre">diag(X)</span></code> is close to zero.
+These values are ignored any way so they do not disrupt the
+squareform transformation.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>Y</strong><span class="classifier">ndarray</span></dt><dd><p>If a condensed distance matrix is passed, a redundant one is
+returned, or if a redundant one is passed, a condensed distance
+matrix is returned.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ol class="arabic">
+<li><p><code class="docutils literal notranslate"><span class="pre">v</span> <span class="pre">=</span> <span class="pre">squareform(X)</span></code></p>
+<p>Given a square n-by-n symmetric distance matrix <code class="docutils literal notranslate"><span class="pre">X</span></code>,
+<code class="docutils literal notranslate"><span class="pre">v</span> <span class="pre">=</span> <span class="pre">squareform(X)</span></code> returns a <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">*</span> <span class="pre">(n-1)</span> <span class="pre">/</span> <span class="pre">2</span></code>
+(i.e. binomial coefficient n choose 2) sized vector <em class="xref py py-obj">v</em>
+where <span class="math notranslate nohighlight">\(v[{n \choose 2} - {n-i \choose 2} + (j-i-1)]\)</span>
+is the distance between distinct points <code class="docutils literal notranslate"><span class="pre">i</span></code> and <code class="docutils literal notranslate"><span class="pre">j</span></code>.
+If <code class="docutils literal notranslate"><span class="pre">X</span></code> is non-square or asymmetric, an error is raised.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">X</span> <span class="pre">=</span> <span class="pre">squareform(v)</span></code></p>
+<p>Given a <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">*</span> <span class="pre">(n-1)</span> <span class="pre">/</span> <span class="pre">2</span></code> sized vector <code class="docutils literal notranslate"><span class="pre">v</span></code>
+for some integer <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">&gt;=</span> <span class="pre">1</span></code> encoding distances as described,
+<code class="docutils literal notranslate"><span class="pre">X</span> <span class="pre">=</span> <span class="pre">squareform(v)</span></code> returns a n-by-n distance matrix <code class="docutils literal notranslate"><span class="pre">X</span></code>.
+The <code class="docutils literal notranslate"><span class="pre">X[i,</span> <span class="pre">j]</span></code> and <code class="docutils literal notranslate"><span class="pre">X[j,</span> <span class="pre">i]</span></code> values are set to
+<span class="math notranslate nohighlight">\(v[{n \choose 2} - {n-i \choose 2} + (j-i-1)]\)</span>
+and all diagonal elements are zero.</p>
+</li>
+</ol>
+<p>In SciPy 0.19.0, <code class="docutils literal notranslate"><span class="pre">squareform</span></code> stopped casting all input types to
+float64, and started returning arrays of the same dtype as the input.</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+          </div>
+      <div class="spc-rightsidebar span3">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="scipy.spatial.distance.cdist.html"
+                        title="previous chapter">scipy.spatial.distance.cdist</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="scipy.spatial.distance.directed_hausdorff.html"
+                        title="next chapter">scipy.spatial.distance.directed_hausdorff</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h4>Quick search</h4>
+    <div>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" style="width: inherit;" name="q" />
+      <input type="submit" value="search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container container-navbar-bottom">
+      <div class="spc-navbar">
+        
+      </div>
+    </div>
+    <div class="container">
+    <div class="footer">
+    <div class="row-fluid">
+    <ul class="inline pull-left">
+      <li>
+        &copy; Copyright 2008-2021, The SciPy community.
+      </li>
+      <li>
+      Last updated on Feb 20, 2021.
+      </li>
+      <li>
+      Created using <a href="https://www.sphinx-doc.org">Sphinx</a> 3.5.1.
+      </li>
+    </ul>
+    </div>
+    </div>
+    </div>
+  </body>
+</html>

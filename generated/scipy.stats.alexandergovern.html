@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>scipy.stats.alexandergovern &mdash; SciPy v1.7.0.dev0+5ac5f63 Reference Guide</title>
+    
+    <link rel="stylesheet" type="text/css" href="../_static/css/spc-bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../_static/css/spc-extend.css">
+    <link rel="stylesheet" href="../_static/scipy.css" type="text/css" >
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" >
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/js/copybutton.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" >
+    <link rel="search" title="Search" href="../search.html" >
+    <link rel="top" title="SciPy v1.7.0.dev0+5ac5f63 Reference Guide" href="../index.html" >
+    <link rel="up" title="Statistical functions (scipy.stats)" href="../stats.html" >
+    <link rel="next" title="scipy.stats.pearsonr" href="scipy.stats.pearsonr.html" >
+    <link rel="prev" title="scipy.stats.f_oneway" href="scipy.stats.f_oneway.html" > 
+  </head>
+  <body>
+
+<div class="container">
+  <div class="top-scipy-org-logo-header">
+    <a href="../index.html">
+      <img style="border: 0;" alt="SciPy" src="../_static/img/scipy_org_logo.png"></a>
+    </div>
+  </div>
+</div>
+
+
+    <div class="container">
+      <div class="main">
+        
+	<div class="row-fluid">
+	  <div class="span12">
+	    <div class="spc-navbar">
+              
+    <ul class="nav nav-pills pull-left">
+        <li class="active"><a href="https://scipy.org/">SciPy.org</a></li>
+        <li class="active"><a href="https://docs.scipy.org/">Docs</a></li>
+	
+        <li class="active"><a href="../index.html">SciPy v1.7.0.dev0+5ac5f63 Reference Guide</a></li>
+	
+          <li class="active"><a href="../stats.html" accesskey="U">Statistical functions (<code class="xref py py-mod docutils literal notranslate"><span class="pre">scipy.stats</span></code>)</a></li> 
+    </ul>
+              
+              
+    <ul class="nav nav-pills pull-right">
+      <li class="active">
+        <a href="../genindex.html" title="General Index"
+           accesskey="I">index</a>
+      </li>
+      <li class="active">
+        <a href="../py-modindex.html" title="Python Module Index"
+           >modules</a>
+      </li>
+      <li class="active">
+        <a href="scipy.stats.pearsonr.html" title="scipy.stats.pearsonr"
+           accesskey="N">next</a>
+      </li>
+      <li class="active">
+        <a href="scipy.stats.f_oneway.html" title="scipy.stats.f_oneway"
+           accesskey="P">previous</a>
+      </li>
+    </ul>
+              
+	    </div>
+	  </div>
+	</div>
+        
+
+	<div class="row-fluid">
+          <div class="span9">
+            
+        <div class="bodywrapper">
+          <div class="body" id="spc-section-body">
+            
+  <div class="section" id="scipy-stats-alexandergovern">
+<h1>scipy.stats.alexandergovern<a class="headerlink" href="#scipy-stats-alexandergovern" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt id="scipy.stats.alexandergovern">
+<code class="sig-prename descclassname"><span class="pre">scipy.stats.</span></code><code class="sig-name descname"><span class="pre">alexandergovern</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nan_policy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'propagate'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/scipy/scipy/blob/5ac5f63/scipy/stats/stats.py#L3801-L3934"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scipy.stats.alexandergovern" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs the Alexander Govern test.</p>
+<p>The Alexander-Govern approximation tests the equality of k independent
+means in the face of heterogeneity of variance. The test is applied to
+samples from two or more groups, possibly with differing sizes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>sample1, sample2, …</strong><span class="classifier">array_like</span></dt><dd><p>The sample measurements for each group.  There must be at least
+two samples.</p>
+</dd>
+<dt><strong>nan_policy</strong><span class="classifier">{‘propagate’, ‘raise’, ‘omit’}, optional</span></dt><dd><p>Defines how to handle when input contains nan.
+The following options are available (default is ‘propagate’):</p>
+<ul class="simple">
+<li><p>‘propagate’: returns nan</p></li>
+<li><p>‘raise’: throws an error</p></li>
+<li><p>‘omit’: performs the calculations ignoring nan values</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>statistic</strong><span class="classifier">float</span></dt><dd><p>The computed A statistic of the test.</p>
+</dd>
+<dt><strong>pvalue</strong><span class="classifier">float</span></dt><dd><p>The associated p-value from the chi-squared distribution.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Warns</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>AlexanderGovernConstantInputWarning</dt><dd><p>Raised if an input is a constant array.  The statistic is not defined
+in this case, so <code class="docutils literal notranslate"><span class="pre">np.nan</span></code> is returned.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="scipy.stats.f_oneway.html#scipy.stats.f_oneway" title="scipy.stats.f_oneway"><code class="xref py py-obj docutils literal notranslate"><span class="pre">f_oneway</span></code></a></dt><dd><p>one-way ANOVA</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Notes</p>
+<p>The use of this test relies on several assumptions.</p>
+<ol class="arabic simple">
+<li><p>The samples are independent.</p></li>
+<li><p>Each sample is from a normally distributed population.</p></li>
+<li><p>Unlike <a class="reference internal" href="scipy.stats.f_oneway.html#scipy.stats.f_oneway" title="scipy.stats.f_oneway"><code class="xref py py-obj docutils literal notranslate"><span class="pre">f_oneway</span></code></a>, this test does not assume on homoscedasticity,
+instead relaxing the assumption of equal variances.</p></li>
+</ol>
+<p>Input samples must be finite, one dimensional, and with size greater than
+one.</p>
+<p class="rubric">References</p>
+<dl class="citation">
+<dt class="label" id="r0618a0719b8d-1"><span class="brackets">1</span></dt>
+<dd><p>Alexander, Ralph A., and Diane M. Govern. “A New and Simpler
+Approximation for ANOVA under Variance Heterogeneity.” Journal
+of Educational Statistics, vol. 19, no. 2, 1994, pp. 91-101.
+JSTOR, www.jstor.org/stable/1165140. Accessed 12 Sept. 2020.</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">alexandergovern</span>
+</pre></div>
+</div>
+<p>Here are some data on annual percentage rate of interest charged on
+new car loans at nine of the largest banks in four American cities
+taken from the National Institute of Standards and Technology’s
+ANOVA dataset.</p>
+<p>We use <a class="reference internal" href="#scipy.stats.alexandergovern" title="scipy.stats.alexandergovern"><code class="xref py py-obj docutils literal notranslate"><span class="pre">alexandergovern</span></code></a> to test the null hypothesis that all cities
+have the same mean APR against the alternative that the cities do not
+all have the same mean APR. We decide that a sigificance level of 5%
+is required to reject the null hypothesis in favor of the alternative.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">atlanta</span> <span class="o">=</span> <span class="p">[</span><span class="mf">13.75</span><span class="p">,</span> <span class="mf">13.75</span><span class="p">,</span> <span class="mf">13.5</span><span class="p">,</span> <span class="mf">13.5</span><span class="p">,</span> <span class="mf">13.0</span><span class="p">,</span> <span class="mf">13.0</span><span class="p">,</span> <span class="mf">13.0</span><span class="p">,</span> <span class="mf">12.75</span><span class="p">,</span> <span class="mf">12.5</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">chicago</span> <span class="o">=</span> <span class="p">[</span><span class="mf">14.25</span><span class="p">,</span> <span class="mf">13.0</span><span class="p">,</span> <span class="mf">12.75</span><span class="p">,</span> <span class="mf">12.5</span><span class="p">,</span> <span class="mf">12.5</span><span class="p">,</span> <span class="mf">12.4</span><span class="p">,</span> <span class="mf">12.3</span><span class="p">,</span> <span class="mf">11.9</span><span class="p">,</span> <span class="mf">11.9</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">houston</span> <span class="o">=</span> <span class="p">[</span><span class="mf">14.0</span><span class="p">,</span> <span class="mf">14.0</span><span class="p">,</span> <span class="mf">13.51</span><span class="p">,</span> <span class="mf">13.5</span><span class="p">,</span> <span class="mf">13.5</span><span class="p">,</span> <span class="mf">13.25</span><span class="p">,</span> <span class="mf">13.0</span><span class="p">,</span> <span class="mf">12.5</span><span class="p">,</span> <span class="mf">12.5</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">memphis</span> <span class="o">=</span> <span class="p">[</span><span class="mf">15.0</span><span class="p">,</span> <span class="mf">14.0</span><span class="p">,</span> <span class="mf">13.75</span><span class="p">,</span> <span class="mf">13.59</span><span class="p">,</span> <span class="mf">13.25</span><span class="p">,</span> <span class="mf">12.97</span><span class="p">,</span> <span class="mf">12.5</span><span class="p">,</span> <span class="mf">12.25</span><span class="p">,</span>
+<span class="gp">... </span>          <span class="mf">11.89</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">alexandergovern</span><span class="p">(</span><span class="n">atlanta</span><span class="p">,</span> <span class="n">chicago</span><span class="p">,</span> <span class="n">houston</span><span class="p">,</span> <span class="n">memphis</span><span class="p">)</span>
+<span class="go">AlexanderGovernResult(statistic=4.65087071883494,</span>
+<span class="go">                      pvalue=0.19922132490385214)</span>
+</pre></div>
+</div>
+<p>The p-value is 0.1992, indicating a nearly 20% chance of observing
+such an extreme value of the test statistic under the null hypothesis.
+This exceeds 5%, so we do not reject the null hypothesis in favor of
+the alternative.</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+          </div>
+      <div class="spc-rightsidebar span3">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="scipy.stats.f_oneway.html"
+                        title="previous chapter">scipy.stats.f_oneway</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="scipy.stats.pearsonr.html"
+                        title="next chapter">scipy.stats.pearsonr</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h4>Quick search</h4>
+    <div>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" style="width: inherit;" name="q" />
+      <input type="submit" value="search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container container-navbar-bottom">
+      <div class="spc-navbar">
+        
+      </div>
+    </div>
+    <div class="container">
+    <div class="footer">
+    <div class="row-fluid">
+    <ul class="inline pull-left">
+      <li>
+        &copy; Copyright 2008-2021, The SciPy community.
+      </li>
+      <li>
+      Last updated on Feb 20, 2021.
+      </li>
+      <li>
+      Created using <a href="https://www.sphinx-doc.org">Sphinx</a> 3.5.1.
+      </li>
+    </ul>
+    </div>
+    </div>
+    </div>
+  </body>
+</html>

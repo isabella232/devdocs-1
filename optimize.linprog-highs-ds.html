@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>linprog(method=’highs-ds’) &mdash; SciPy v1.7.0.dev0+5ac5f63 Reference Guide</title>
+    
+    <link rel="stylesheet" type="text/css" href="_static/css/spc-bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="_static/css/spc-extend.css">
+    <link rel="stylesheet" href="_static/scipy.css" type="text/css" >
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" >
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/scipy-mathjax/MathJax.js?config=scipy-mathjax"></script>
+    <script type="text/javascript" src="_static/js/copybutton.js"></script>
+    <link rel="index" title="Index" href="genindex.html" >
+    <link rel="search" title="Search" href="search.html" >
+    <link rel="top" title="SciPy v1.7.0.dev0+5ac5f63 Reference Guide" href="index.html" >
+    <link rel="up" title="Optimization and root finding (scipy.optimize)" href="optimize.html" >
+    <link rel="next" title="linprog(method=’highs’)" href="optimize.linprog-highs.html" >
+    <link rel="prev" title="linprog(method=’highs-ipm’)" href="optimize.linprog-highs-ipm.html" > 
+  </head>
+  <body>
+
+<div class="container">
+  <div class="top-scipy-org-logo-header">
+    <a href="index.html">
+      <img style="border: 0;" alt="SciPy" src="_static/img/scipy_org_logo.png"></a>
+    </div>
+  </div>
+</div>
+
+
+    <div class="container">
+      <div class="main">
+        
+	<div class="row-fluid">
+	  <div class="span12">
+	    <div class="spc-navbar">
+              
+    <ul class="nav nav-pills pull-left">
+        <li class="active"><a href="https://scipy.org/">SciPy.org</a></li>
+        <li class="active"><a href="https://docs.scipy.org/">Docs</a></li>
+	
+        <li class="active"><a href="index.html">SciPy v1.7.0.dev0+5ac5f63 Reference Guide</a></li>
+	
+          <li class="active"><a href="optimize.html" accesskey="U">Optimization and root finding (<code class="xref py py-mod docutils literal notranslate"><span class="pre">scipy.optimize</span></code>)</a></li> 
+    </ul>
+              
+              
+    <ul class="nav nav-pills pull-right">
+      <li class="active">
+        <a href="genindex.html" title="General Index"
+           accesskey="I">index</a>
+      </li>
+      <li class="active">
+        <a href="py-modindex.html" title="Python Module Index"
+           >modules</a>
+      </li>
+      <li class="active">
+        <a href="optimize.linprog-highs.html" title="linprog(method=’highs’)"
+           accesskey="N">next</a>
+      </li>
+      <li class="active">
+        <a href="optimize.linprog-highs-ipm.html" title="linprog(method=’highs-ipm’)"
+           accesskey="P">previous</a>
+      </li>
+    </ul>
+              
+	    </div>
+	  </div>
+	</div>
+        
+
+	<div class="row-fluid">
+          <div class="span9">
+            
+        <div class="bodywrapper">
+          <div class="body" id="spc-section-body">
+            
+  <div class="section" id="linprog-method-highs-ds">
+<span id="optimize-linprog-highs-ds"></span><h1>linprog(method=’highs-ds’)<a class="headerlink" href="#linprog-method-highs-ds" title="Permalink to this headline">¶</a></h1>
+<dl class="scipy-optimize function">
+<dt>
+<code class="sig-prename descclassname"><span class="pre">scipy.optimize.</span></code><code class="sig-name descname"><span class="pre">linprog</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A_ub</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b_ub</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A_eq</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b_eq</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bounds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'highs-ds'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{'maxiter':</span> <span class="pre">None,</span> <span class="pre">'disp':</span> <span class="pre">False,</span> <span class="pre">'presolve':</span> <span class="pre">True,</span> <span class="pre">'time_limit':</span> <span class="pre">None,</span> <span class="pre">'dual_feasibility_tolerance':</span> <span class="pre">None,</span> <span class="pre">'primal_feasibility_tolerance':</span> <span class="pre">None,</span> <span class="pre">'simplex_dual_edge_weight_strategy':</span> <span class="pre">None}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span></dt>
+<dd><p>Linear programming: minimize a linear objective function subject to linear
+equality and inequality constraints using the HiGHS dual simplex solver.</p>
+<p>Linear programming solves problems of the following form:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\min_x \ &amp; c^T x \\
+\mbox{such that} \ &amp; A_{ub} x \leq b_{ub},\\
+&amp; A_{eq} x = b_{eq},\\
+&amp; l \leq x \leq u ,\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(x\)</span> is a vector of decision variables; <span class="math notranslate nohighlight">\(c\)</span>,
+<span class="math notranslate nohighlight">\(b_{ub}\)</span>, <span class="math notranslate nohighlight">\(b_{eq}\)</span>, <span class="math notranslate nohighlight">\(l\)</span>, and <span class="math notranslate nohighlight">\(u\)</span> are vectors; and
+<span class="math notranslate nohighlight">\(A_{ub}\)</span> and <span class="math notranslate nohighlight">\(A_{eq}\)</span> are matrices.</p>
+<p>Alternatively, that’s:</p>
+<p>minimize:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">c</span> <span class="o">@</span> <span class="n">x</span>
+</pre></div>
+</div>
+<p>such that:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">A_ub</span> <span class="o">@</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">b_ub</span>
+<span class="n">A_eq</span> <span class="o">@</span> <span class="n">x</span> <span class="o">==</span> <span class="n">b_eq</span>
+<span class="n">lb</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">ub</span>
+</pre></div>
+</div>
+<p>Note that by default <code class="docutils literal notranslate"><span class="pre">lb</span> <span class="pre">=</span> <span class="pre">0</span></code> and <code class="docutils literal notranslate"><span class="pre">ub</span> <span class="pre">=</span> <span class="pre">None</span></code> unless specified with
+<code class="docutils literal notranslate"><span class="pre">bounds</span></code>.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>c</strong><span class="classifier">1-D array</span></dt><dd><p>The coefficients of the linear objective function to be minimized.</p>
+</dd>
+<dt><strong>A_ub</strong><span class="classifier">2-D array, optional</span></dt><dd><p>The inequality constraint matrix. Each row of <code class="docutils literal notranslate"><span class="pre">A_ub</span></code> specifies the
+coefficients of a linear inequality constraint on <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+</dd>
+<dt><strong>b_ub</strong><span class="classifier">1-D array, optional</span></dt><dd><p>The inequality constraint vector. Each element represents an
+upper bound on the corresponding value of <code class="docutils literal notranslate"><span class="pre">A_ub</span> <span class="pre">&#64;</span> <span class="pre">x</span></code>.</p>
+</dd>
+<dt><strong>A_eq</strong><span class="classifier">2-D array, optional</span></dt><dd><p>The equality constraint matrix. Each row of <code class="docutils literal notranslate"><span class="pre">A_eq</span></code> specifies the
+coefficients of a linear equality constraint on <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+</dd>
+<dt><strong>b_eq</strong><span class="classifier">1-D array, optional</span></dt><dd><p>The equality constraint vector. Each element of <code class="docutils literal notranslate"><span class="pre">A_eq</span> <span class="pre">&#64;</span> <span class="pre">x</span></code> must equal
+the corresponding element of <code class="docutils literal notranslate"><span class="pre">b_eq</span></code>.</p>
+</dd>
+<dt><strong>bounds</strong><span class="classifier">sequence, optional</span></dt><dd><p>A sequence of <code class="docutils literal notranslate"><span class="pre">(min,</span> <span class="pre">max)</span></code> pairs for each element in <code class="docutils literal notranslate"><span class="pre">x</span></code>, defining
+the minimum and maximum values of that decision variable. Use <code class="docutils literal notranslate"><span class="pre">None</span></code>
+to indicate that there is no bound. By default, bounds are
+<code class="docutils literal notranslate"><span class="pre">(0,</span> <span class="pre">None)</span></code> (all decision variables are non-negative).
+If a single tuple <code class="docutils literal notranslate"><span class="pre">(min,</span> <span class="pre">max)</span></code> is provided, then <code class="docutils literal notranslate"><span class="pre">min</span></code> and
+<code class="docutils literal notranslate"><span class="pre">max</span></code> will serve as bounds for all decision variables.</p>
+</dd>
+<dt><strong>method</strong><span class="classifier">str</span></dt><dd><p>This is the method-specific documentation for ‘highs-ds’.
+<a class="reference internal" href="optimize.linprog-highs.html#optimize-linprog-highs"><span class="std std-ref">‘highs’</span></a>,
+<a class="reference internal" href="optimize.linprog-highs-ipm.html#optimize-linprog-highs-ipm"><span class="std std-ref">‘highs-ipm’</span></a>,
+<a class="reference internal" href="optimize.linprog-interior-point.html#optimize-linprog-interior-point"><span class="std std-ref">‘interior-point’</span></a> (default),
+<a class="reference internal" href="optimize.linprog-revised_simplex.html#optimize-linprog-revised-simplex"><span class="std std-ref">‘revised simplex’</span></a>, and
+<a class="reference internal" href="optimize.linprog-simplex.html#optimize-linprog-simplex"><span class="std std-ref">‘simplex’</span></a> (legacy)
+are also available.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl>
+<dt><strong>res</strong><span class="classifier">OptimizeResult</span></dt><dd><p>A <a class="reference internal" href="generated/scipy.optimize.OptimizeResult.html#scipy.optimize.OptimizeResult" title="scipy.optimize.OptimizeResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">scipy.optimize.OptimizeResult</span></code></a> consisting of the fields:</p>
+<dl>
+<dt>x<span class="classifier">1D array</span></dt><dd><p>The values of the decision variables that minimizes the
+objective function while satisfying the constraints.</p>
+</dd>
+<dt>fun<span class="classifier">float</span></dt><dd><p>The optimal value of the objective function <code class="docutils literal notranslate"><span class="pre">c</span> <span class="pre">&#64;</span> <span class="pre">x</span></code>.</p>
+</dd>
+<dt>slack<span class="classifier">1D array</span></dt><dd><p>The (nominally positive) values of the slack,
+<code class="docutils literal notranslate"><span class="pre">b_ub</span> <span class="pre">-</span> <span class="pre">A_ub</span> <span class="pre">&#64;</span> <span class="pre">x</span></code>.</p>
+</dd>
+<dt>con<span class="classifier">1D array</span></dt><dd><p>The (nominally zero) residuals of the equality constraints,
+<code class="docutils literal notranslate"><span class="pre">b_eq</span> <span class="pre">-</span> <span class="pre">A_eq</span> <span class="pre">&#64;</span> <span class="pre">x</span></code>.</p>
+</dd>
+<dt>success<span class="classifier">bool</span></dt><dd><p><code class="docutils literal notranslate"><span class="pre">True</span></code> when the algorithm succeeds in finding an optimal
+solution.</p>
+</dd>
+<dt>status<span class="classifier">int</span></dt><dd><p>An integer representing the exit status of the algorithm.</p>
+<p><code class="docutils literal notranslate"><span class="pre">0</span></code> : Optimization terminated successfully.</p>
+<p><code class="docutils literal notranslate"><span class="pre">1</span></code> : Iteration or time limit reached.</p>
+<p><code class="docutils literal notranslate"><span class="pre">2</span></code> : Problem appears to be infeasible.</p>
+<p><code class="docutils literal notranslate"><span class="pre">3</span></code> : Problem appears to be unbounded.</p>
+<p><code class="docutils literal notranslate"><span class="pre">4</span></code> : The HiGHS solver ran into a problem.</p>
+</dd>
+<dt>message<span class="classifier">str</span></dt><dd><p>A string descriptor of the exit status of the algorithm.</p>
+</dd>
+<dt>nit<span class="classifier">int</span></dt><dd><p>The total number of iterations performed. This includes iterations
+in all phases.</p>
+</dd>
+<dt>crossover_nit<span class="classifier">int</span></dt><dd><p>This is always <code class="docutils literal notranslate"><span class="pre">0</span></code> for the HiGHS simplex method.
+For the HiGHS interior-point method, this is the number of
+primal/dual pushes performed during the crossover routine.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>For documentation for the rest of the parameters, see <a class="reference internal" href="generated/scipy.optimize.linprog.html#scipy.optimize.linprog" title="scipy.optimize.linprog"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scipy.optimize.linprog</span></code></a></p>
+</div>
+<dl class="field-list">
+<dt class="field-odd">Options</dt>
+<dd class="field-odd"><dl>
+<dt><strong>maxiter</strong><span class="classifier">int</span></dt><dd><p>The maximum number of iterations to perform in either phase.
+Default is the largest possible value for an <code class="docutils literal notranslate"><span class="pre">int</span></code> on the platform.</p>
+</dd>
+<dt><strong>disp</strong><span class="classifier">bool (default: <code class="docutils literal notranslate"><span class="pre">False</span></code>)</span></dt><dd><p>Set to <code class="docutils literal notranslate"><span class="pre">True</span></code> if indicators of optimization status are to be
+printed to the console during optimization.</p>
+</dd>
+<dt><strong>presolve</strong><span class="classifier">bool (default: <code class="docutils literal notranslate"><span class="pre">True</span></code>)</span></dt><dd><p>Presolve attempts to identify trivial infeasibilities,
+identify trivial unboundedness, and simplify the problem before
+sending it to the main solver. It is generally recommended
+to keep the default setting <code class="docutils literal notranslate"><span class="pre">True</span></code>; set to <code class="docutils literal notranslate"><span class="pre">False</span></code> if
+presolve is to be disabled.</p>
+</dd>
+<dt><strong>time_limit</strong><span class="classifier">float</span></dt><dd><p>The maximum time in seconds allotted to solve the problem;
+default is the largest possible value for a <code class="docutils literal notranslate"><span class="pre">double</span></code> on the
+platform.</p>
+</dd>
+<dt><strong>dual_feasibility_tolerance</strong><span class="classifier">double (default: 1e-07)</span></dt><dd><p>Dual feasibility tolerance for
+<a class="reference internal" href="#optimize-linprog-highs-ds"><span class="std std-ref">‘highs-ds’</span></a>.</p>
+</dd>
+<dt><strong>primal_feasibility_tolerance</strong><span class="classifier">double (default: 1e-07)</span></dt><dd><p>Primal feasibility tolerance for
+<a class="reference internal" href="#optimize-linprog-highs-ds"><span class="std std-ref">‘highs-ds’</span></a>.</p>
+</dd>
+<dt><strong>simplex_dual_edge_weight_strategy</strong><span class="classifier">str (default: None)</span></dt><dd><p>Strategy for simplex dual edge weights. The default, <code class="docutils literal notranslate"><span class="pre">None</span></code>,
+automatically selects one of the following.</p>
+<p><code class="docutils literal notranslate"><span class="pre">'dantzig'</span></code> uses Dantzig’s original strategy of choosing the most
+negative reduced cost.</p>
+<p><code class="docutils literal notranslate"><span class="pre">'devex'</span></code> uses the strategy described in <a class="reference internal" href="#r1919c269095c-15" id="id1">[15]</a>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">steepest</span></code> uses the exact steepest edge strategy as described in
+<a class="reference internal" href="#r1919c269095c-16" id="id2">[16]</a>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">'steepest-devex'</span></code> begins with the exact steepest edge strategy
+until the computation is too costly or inexact and then switches to
+the devex method.</p>
+<p>Curently, <code class="docutils literal notranslate"><span class="pre">None</span></code> always selects <code class="docutils literal notranslate"><span class="pre">'steepest-devex'</span></code>, but this
+may change as new options become available.</p>
+</dd>
+<dt><strong>unknown_options</strong><span class="classifier">dict</span></dt><dd><p>Optional arguments not used by this particular solver. If
+<code class="docutils literal notranslate"><span class="pre">unknown_options</span></code> is non-empty, a warning is issued listing
+all unused options.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Method <a class="reference internal" href="#optimize-linprog-highs-ds"><span class="std std-ref">‘highs-ds’</span></a> is a wrapper
+of the C++ high performance dual revised simplex implementation (HSOL)
+<a class="reference internal" href="#r1919c269095c-13" id="id3">[13]</a>, <a class="reference internal" href="#r1919c269095c-14" id="id4">[14]</a>. Method <a class="reference internal" href="optimize.linprog-highs-ipm.html#optimize-linprog-highs-ipm"><span class="std std-ref">‘highs-ipm’</span></a>
+is a wrapper of a C++ implementation of an <strong>i</strong>nterior-<strong>p</strong>oint
+<strong>m</strong>ethod <a class="reference internal" href="#r1919c269095c-13" id="id5">[13]</a>; it features a crossover routine, so it is as accurate
+as a simplex solver. Method <a class="reference internal" href="optimize.linprog-highs.html#optimize-linprog-highs"><span class="std std-ref">‘highs’</span></a> chooses
+between the two automatically. For new code involving <a class="reference internal" href="generated/scipy.optimize.linprog.html#scipy.optimize.linprog" title="scipy.optimize.linprog"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linprog</span></code></a>, we
+recommend explicitly choosing one of these three method values instead of
+<a class="reference internal" href="optimize.linprog-interior-point.html#optimize-linprog-interior-point"><span class="std std-ref">‘interior-point’</span></a> (default),
+<a class="reference internal" href="optimize.linprog-revised_simplex.html#optimize-linprog-revised-simplex"><span class="std std-ref">‘revised simplex’</span></a>, and
+<a class="reference internal" href="optimize.linprog-simplex.html#optimize-linprog-simplex"><span class="std std-ref">‘simplex’</span></a> (legacy).</p>
+<p class="rubric">References</p>
+<dl class="citation">
+<dt class="label" id="r1919c269095c-13"><span class="brackets">13</span><span class="fn-backref">(<a href="#id3">1</a>,<a href="#id5">2</a>)</span></dt>
+<dd><p>Huangfu, Q., Galabova, I., Feldmeier, M., and Hall, J. A. J.
+“HiGHS - high performance software for linear optimization.”
+Accessed 4/16/2020 at <a class="reference external" href="https://www.maths.ed.ac.uk/hall/HiGHS/#guide">https://www.maths.ed.ac.uk/hall/HiGHS/#guide</a></p>
+</dd>
+<dt class="label" id="r1919c269095c-14"><span class="brackets"><a class="fn-backref" href="#id4">14</a></span></dt>
+<dd><p>Huangfu, Q. and Hall, J. A. J. “Parallelizing the dual revised
+simplex method.” Mathematical Programming Computation, 10 (1),
+119-142, 2018. DOI: 10.1007/s12532-017-0130-5</p>
+</dd>
+<dt class="label" id="r1919c269095c-15"><span class="brackets"><a class="fn-backref" href="#id1">15</a></span></dt>
+<dd><p>Harris, Paula MJ. “Pivot selection methods of the Devex LP code.”
+Mathematical programming 5.1 (1973): 1-28.</p>
+</dd>
+<dt class="label" id="r1919c269095c-16"><span class="brackets"><a class="fn-backref" href="#id2">16</a></span></dt>
+<dd><p>Goldfarb, Donald, and John Ker Reid. “A practicable steepest-edge
+simplex algorithm.” Mathematical Programming 12.1 (1977): 361-371.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+          </div>
+      <div class="spc-rightsidebar span3">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="optimize.linprog-highs-ipm.html"
+                        title="previous chapter">linprog(method=’highs-ipm’)</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="optimize.linprog-highs.html"
+                        title="next chapter">linprog(method=’highs’)</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h4>Quick search</h4>
+    <div>
+    <form class="search" action="search.html" method="get">
+      <input type="text" style="width: inherit;" name="q" />
+      <input type="submit" value="search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container container-navbar-bottom">
+      <div class="spc-navbar">
+        
+      </div>
+    </div>
+    <div class="container">
+    <div class="footer">
+    <div class="row-fluid">
+    <ul class="inline pull-left">
+      <li>
+        &copy; Copyright 2008-2021, The SciPy community.
+      </li>
+      <li>
+      Last updated on Feb 20, 2021.
+      </li>
+      <li>
+      Created using <a href="https://www.sphinx-doc.org">Sphinx</a> 3.5.1.
+      </li>
+    </ul>
+    </div>
+    </div>
+    </div>
+  </body>
+</html>

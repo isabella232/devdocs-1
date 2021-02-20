@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>scipy.cluster.hierarchy.DisjointSet &mdash; SciPy v1.7.0.dev0+5ac5f63 Reference Guide</title>
+    
+    <link rel="stylesheet" type="text/css" href="../_static/css/spc-bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../_static/css/spc-extend.css">
+    <link rel="stylesheet" href="../_static/scipy.css" type="text/css" >
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" >
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/js/copybutton.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" >
+    <link rel="search" title="Search" href="../search.html" >
+    <link rel="top" title="SciPy v1.7.0.dev0+5ac5f63 Reference Guide" href="../index.html" >
+    <link rel="up" title="Hierarchical clustering (scipy.cluster.hierarchy)" href="../cluster.hierarchy.html" >
+    <link rel="next" title="scipy.cluster.hierarchy.DisjointSet.add" href="scipy.cluster.hierarchy.DisjointSet.add.html" >
+    <link rel="prev" title="scipy.cluster.hierarchy.set_link_color_palette" href="scipy.cluster.hierarchy.set_link_color_palette.html" > 
+  </head>
+  <body>
+
+<div class="container">
+  <div class="top-scipy-org-logo-header">
+    <a href="../index.html">
+      <img style="border: 0;" alt="SciPy" src="../_static/img/scipy_org_logo.png"></a>
+    </div>
+  </div>
+</div>
+
+
+    <div class="container">
+      <div class="main">
+        
+	<div class="row-fluid">
+	  <div class="span12">
+	    <div class="spc-navbar">
+              
+    <ul class="nav nav-pills pull-left">
+        <li class="active"><a href="https://scipy.org/">SciPy.org</a></li>
+        <li class="active"><a href="https://docs.scipy.org/">Docs</a></li>
+	
+        <li class="active"><a href="../index.html">SciPy v1.7.0.dev0+5ac5f63 Reference Guide</a></li>
+	
+          <li class="active"><a href="../cluster.html" >Clustering package (<code class="xref py py-mod docutils literal notranslate"><span class="pre">scipy.cluster</span></code>)</a></li>
+          <li class="active"><a href="../cluster.hierarchy.html" accesskey="U">Hierarchical clustering (<code class="xref py py-mod docutils literal notranslate"><span class="pre">scipy.cluster.hierarchy</span></code>)</a></li> 
+    </ul>
+              
+              
+    <ul class="nav nav-pills pull-right">
+      <li class="active">
+        <a href="../genindex.html" title="General Index"
+           accesskey="I">index</a>
+      </li>
+      <li class="active">
+        <a href="../py-modindex.html" title="Python Module Index"
+           >modules</a>
+      </li>
+      <li class="active">
+        <a href="scipy.cluster.hierarchy.DisjointSet.add.html" title="scipy.cluster.hierarchy.DisjointSet.add"
+           accesskey="N">next</a>
+      </li>
+      <li class="active">
+        <a href="scipy.cluster.hierarchy.set_link_color_palette.html" title="scipy.cluster.hierarchy.set_link_color_palette"
+           accesskey="P">previous</a>
+      </li>
+    </ul>
+              
+	    </div>
+	  </div>
+	</div>
+        
+
+	<div class="row-fluid">
+          <div class="span9">
+            
+        <div class="bodywrapper">
+          <div class="body" id="spc-section-body">
+            
+  <div class="section" id="scipy-cluster-hierarchy-disjointset">
+<h1>scipy.cluster.hierarchy.DisjointSet<a class="headerlink" href="#scipy-cluster-hierarchy-disjointset" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="scipy.cluster.hierarchy.DisjointSet">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">scipy.cluster.hierarchy.</span></code><code class="sig-name descname"><span class="pre">DisjointSet</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">elements</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/scipy/scipy/blob/5ac5f63/scipy/_lib/_disjoint_set.py#L7-L230"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scipy.cluster.hierarchy.DisjointSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disjoint set data structure for incremental connectivity queries.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.6.0.</span></p>
+</div>
+<p class="rubric">Notes</p>
+<p>This class implements the disjoint set <a class="reference internal" href="#rbb599579b481-1" id="id1">[1]</a>, also known as the <em>union-find</em>
+or <em>merge-find</em> data structure. The <em>find</em> operation (implemented in
+<a class="reference internal" href="scipy.cluster.hierarchy.DisjointSet.__getitem__.html#scipy.cluster.hierarchy.DisjointSet.__getitem__" title="scipy.cluster.hierarchy.DisjointSet.__getitem__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__getitem__</span></code></a>) implements the <em>path halving</em> variant. The <em>merge</em> method
+implements the <em>merge by size</em> variant.</p>
+<p class="rubric">References</p>
+<dl class="citation">
+<dt class="label" id="rbb599579b481-1"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p><a class="reference external" href="https://en.wikipedia.org/wiki/Disjoint-set_data_structure">https://en.wikipedia.org/wiki/Disjoint-set_data_structure</a></p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scipy.cluster.hierarchy</span> <span class="kn">import</span> <span class="n">DisjointSet</span>
+</pre></div>
+</div>
+<p>Initialize a disjoint set:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">disjoint_set</span> <span class="o">=</span> <span class="n">DisjointSet</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Merge some subsets:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">disjoint_set</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">disjoint_set</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">disjoint_set</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">disjoint_set</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+<p>Find root elements:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">disjoint_set</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">disjoint_set</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">]</span>
+<span class="go">3</span>
+</pre></div>
+</div>
+<p>Test connectivity:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">disjoint_set</span><span class="o">.</span><span class="n">connected</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">disjoint_set</span><span class="o">.</span><span class="n">connected</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+<p>List elements in disjoint set:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">disjoint_set</span><span class="p">)</span>
+<span class="go">[1, 2, 3, &#39;a&#39;, &#39;b&#39;]</span>
+</pre></div>
+</div>
+<p>Get the subset containing ‘a’:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">disjoint_set</span><span class="o">.</span><span class="n">subset</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
+<span class="go">{&#39;a&#39;, 3, &#39;b&#39;}</span>
+</pre></div>
+</div>
+<p>Get all subsets in the disjoint set:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">disjoint_set</span><span class="o">.</span><span class="n">subsets</span><span class="p">()</span>
+<span class="go">[{1, 2}, {&#39;a&#39;, 3, &#39;b&#39;}]</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>n_subsets</strong><span class="classifier">int</span></dt><dd><p>The number of subsets.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="scipy.cluster.hierarchy.DisjointSet.add.html#scipy.cluster.hierarchy.DisjointSet.add" title="scipy.cluster.hierarchy.DisjointSet.add"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add</span></code></a>(x)</p></td>
+<td><p>Add element <em class="xref py py-obj">x</em> to disjoint set</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="scipy.cluster.hierarchy.DisjointSet.merge.html#scipy.cluster.hierarchy.DisjointSet.merge" title="scipy.cluster.hierarchy.DisjointSet.merge"><code class="xref py py-obj docutils literal notranslate"><span class="pre">merge</span></code></a>(x, y)</p></td>
+<td><p>Merge the subsets of <em class="xref py py-obj">x</em> and <em class="xref py py-obj">y</em>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="scipy.cluster.hierarchy.DisjointSet.connected.html#scipy.cluster.hierarchy.DisjointSet.connected" title="scipy.cluster.hierarchy.DisjointSet.connected"><code class="xref py py-obj docutils literal notranslate"><span class="pre">connected</span></code></a>(x, y)</p></td>
+<td><p>Test whether <em class="xref py py-obj">x</em> and <em class="xref py py-obj">y</em> are in the same subset.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="scipy.cluster.hierarchy.DisjointSet.subset.html#scipy.cluster.hierarchy.DisjointSet.subset" title="scipy.cluster.hierarchy.DisjointSet.subset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">subset</span></code></a>(x)</p></td>
+<td><p>Get the subset containing <em class="xref py py-obj">x</em>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="scipy.cluster.hierarchy.DisjointSet.subsets.html#scipy.cluster.hierarchy.DisjointSet.subsets" title="scipy.cluster.hierarchy.DisjointSet.subsets"><code class="xref py py-obj docutils literal notranslate"><span class="pre">subsets</span></code></a>()</p></td>
+<td><p>Get all the subsets in the disjoint set.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="scipy.cluster.hierarchy.DisjointSet.__getitem__.html#scipy.cluster.hierarchy.DisjointSet.__getitem__" title="scipy.cluster.hierarchy.DisjointSet.__getitem__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__getitem__</span></code></a>(x)</p></td>
+<td><p>Find the root element of <em class="xref py py-obj">x</em>.</p></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+          </div>
+      <div class="spc-rightsidebar span3">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="scipy.cluster.hierarchy.set_link_color_palette.html"
+                        title="previous chapter">scipy.cluster.hierarchy.set_link_color_palette</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="scipy.cluster.hierarchy.DisjointSet.add.html"
+                        title="next chapter">scipy.cluster.hierarchy.DisjointSet.add</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h4>Quick search</h4>
+    <div>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" style="width: inherit;" name="q" />
+      <input type="submit" value="search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container container-navbar-bottom">
+      <div class="spc-navbar">
+        
+      </div>
+    </div>
+    <div class="container">
+    <div class="footer">
+    <div class="row-fluid">
+    <ul class="inline pull-left">
+      <li>
+        &copy; Copyright 2008-2021, The SciPy community.
+      </li>
+      <li>
+      Last updated on Feb 20, 2021.
+      </li>
+      <li>
+      Created using <a href="https://www.sphinx-doc.org">Sphinx</a> 3.5.1.
+      </li>
+    </ul>
+    </div>
+    </div>
+    </div>
+  </body>
+</html>

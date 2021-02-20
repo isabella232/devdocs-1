@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>Adding vectorized ufuncs in scipy.special &mdash; SciPy v1.7.0.dev0+5ac5f63 Reference Guide</title>
+    
+    <link rel="stylesheet" type="text/css" href="../../_static/css/spc-bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../../_static/css/spc-extend.css">
+    <link rel="stylesheet" href="../../_static/scipy.css" type="text/css" >
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" >
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/js/copybutton.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" >
+    <link rel="search" title="Search" href="../../search.html" >
+    <link rel="top" title="SciPy v1.7.0.dev0+5ac5f63 Reference Guide" href="../../index.html" >
+    <link rel="up" title="SciPy API Development Guide" href="api-dev-toc.html" >
+    <link rel="next" title="SciPy Project Governance" href="../governance/governance.html" >
+    <link rel="prev" title="A Design Specification for nan_policy" href="nan_policy.html" > 
+  </head>
+  <body>
+
+<div class="container">
+  <div class="top-scipy-org-logo-header">
+    <a href="../../index.html">
+      <img style="border: 0;" alt="SciPy" src="../../_static/img/scipy_org_logo.png"></a>
+    </div>
+  </div>
+</div>
+
+
+    <div class="container">
+      <div class="main">
+        
+	<div class="row-fluid">
+	  <div class="span12">
+	    <div class="spc-navbar">
+              
+    <ul class="nav nav-pills pull-left">
+        <li class="active"><a href="https://scipy.org/">SciPy.org</a></li>
+        <li class="active"><a href="https://docs.scipy.org/">Docs</a></li>
+	
+        <li class="active"><a href="../../index.html">SciPy v1.7.0.dev0+5ac5f63 Reference Guide</a></li>
+	
+          <li class="active"><a href="api-dev-toc.html" accesskey="U">SciPy API Development Guide</a></li> 
+    </ul>
+              
+              
+    <ul class="nav nav-pills pull-right">
+      <li class="active">
+        <a href="../../genindex.html" title="General Index"
+           accesskey="I">index</a>
+      </li>
+      <li class="active">
+        <a href="../../py-modindex.html" title="Python Module Index"
+           >modules</a>
+      </li>
+      <li class="active">
+        <a href="../governance/governance.html" title="SciPy Project Governance"
+           accesskey="N">next</a>
+      </li>
+      <li class="active">
+        <a href="nan_policy.html" title="A Design Specification for nan_policy"
+           accesskey="P">previous</a>
+      </li>
+    </ul>
+              
+	    </div>
+	  </div>
+	</div>
+        
+
+	<div class="row-fluid">
+          <div class="span9">
+            
+        <div class="bodywrapper">
+          <div class="body" id="spc-section-body">
+            
+  <div class="section" id="adding-vectorized-ufuncs-in-scipy-special">
+<h1>Adding vectorized ufuncs in <code class="docutils literal notranslate"><span class="pre">scipy.special</span></code><a class="headerlink" href="#adding-vectorized-ufuncs-in-scipy-special" title="Permalink to this headline">¶</a></h1>
+<p>Many of the functions in <code class="docutils literal notranslate"><span class="pre">special</span></code> are vectorized versions of scalar
+functions. The scalar functions are written by hand and the necessary
+loops for vectorization are generated automatically. This section
+discusses the steps necessary to add a new vectorized special
+function.</p>
+<p>The first step in adding a new vectorized function is writing the
+corresponding scalar function. This can be done in Cython, C, C++, or
+Fortran. If starting from scratch then Cython should be preferred
+because the code is easier to maintain for developers only familiar
+with Python. If the primary code is in Fortran then it is necessary to
+write a C wrapper around the code; for examples of such wrappers see
+<code class="docutils literal notranslate"><span class="pre">specfun_wrappers.c</span></code>.</p>
+<p>After implementing the scalar function, register the new function by
+adding an entry to <code class="docutils literal notranslate"><span class="pre">functions.json</span></code>. The docstring in
+<code class="docutils literal notranslate"><span class="pre">generate_ufuncs.py</span></code> explains the format. Also add documentation for
+the new function by adding an entry to <code class="docutils literal notranslate"><span class="pre">add_newdocs.py</span></code>; look in the
+file for examples.</p>
+<p>When writing the parameters section of the documentation for ufuncs,
+the type of an argument should be <code class="docutils literal notranslate"><span class="pre">array_like</span></code>. Discussion of
+whether an argument can be e.g. real or complex-valued should be saved
+for the description. So for example, if we were to document the
+parameters for the Gamma function then it should look like this:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Parameters
+----------
+z : array_like
+    Real or complex valued argument
+</pre></div>
+</div>
+<p>When documenting the returns section, the type of the returned value
+should be <code class="docutils literal notranslate"><span class="pre">scalar</span> <span class="pre">or</span> <span class="pre">ndarray</span></code> since ufuncs return scalars when given
+scalars as arguments. Also keep in mind that providing a <code class="docutils literal notranslate"><span class="pre">name</span></code> for
+the return value is optional, and indeed is often not helpful for
+special functions. So for the Gamma function we might have something
+like this:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Returns
+-------
+scalar or ndarray
+    Values of the Gamma function
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+          </div>
+      <div class="spc-rightsidebar span3">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="nan_policy.html"
+                        title="previous chapter">A Design Specification for <code class="docutils literal notranslate"><span class="pre">nan_policy</span></code></a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../governance/governance.html"
+                        title="next chapter">SciPy Project Governance</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h4>Quick search</h4>
+    <div>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" style="width: inherit;" name="q" />
+      <input type="submit" value="search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container container-navbar-bottom">
+      <div class="spc-navbar">
+        
+      </div>
+    </div>
+    <div class="container">
+    <div class="footer">
+    <div class="row-fluid">
+    <ul class="inline pull-left">
+      <li>
+        &copy; Copyright 2008-2021, The SciPy community.
+      </li>
+      <li>
+      Last updated on Feb 20, 2021.
+      </li>
+      <li>
+      Created using <a href="https://www.sphinx-doc.org">Sphinx</a> 3.5.1.
+      </li>
+    </ul>
+    </div>
+    </div>
+    </div>
+  </body>
+</html>

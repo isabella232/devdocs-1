@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>scipy.stats.qmc.QMCEngine &mdash; SciPy v1.7.0.dev0+5ac5f63 Reference Guide</title>
+    
+    <link rel="stylesheet" type="text/css" href="../_static/css/spc-bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../_static/css/spc-extend.css">
+    <link rel="stylesheet" href="../_static/scipy.css" type="text/css" >
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" >
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/js/copybutton.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" >
+    <link rel="search" title="Search" href="../search.html" >
+    <link rel="top" title="SciPy v1.7.0.dev0+5ac5f63 Reference Guide" href="../index.html" >
+    <link rel="up" title="Quasi-Monte Carlo submodule (scipy.stats.qmc)" href="../stats.qmc.html" >
+    <link rel="next" title="scipy.stats.qmc.QMCEngine.fast_forward" href="scipy.stats.qmc.QMCEngine.fast_forward.html" >
+    <link rel="prev" title="Quasi-Monte Carlo submodule (scipy.stats.qmc)" href="../stats.qmc.html" > 
+  </head>
+  <body>
+
+<div class="container">
+  <div class="top-scipy-org-logo-header">
+    <a href="../index.html">
+      <img style="border: 0;" alt="SciPy" src="../_static/img/scipy_org_logo.png"></a>
+    </div>
+  </div>
+</div>
+
+
+    <div class="container">
+      <div class="main">
+        
+	<div class="row-fluid">
+	  <div class="span12">
+	    <div class="spc-navbar">
+              
+    <ul class="nav nav-pills pull-left">
+        <li class="active"><a href="https://scipy.org/">SciPy.org</a></li>
+        <li class="active"><a href="https://docs.scipy.org/">Docs</a></li>
+	
+        <li class="active"><a href="../index.html">SciPy v1.7.0.dev0+5ac5f63 Reference Guide</a></li>
+	
+          <li class="active"><a href="../stats.html" >Statistical functions (<code class="xref py py-mod docutils literal notranslate"><span class="pre">scipy.stats</span></code>)</a></li>
+          <li class="active"><a href="../stats.qmc.html" accesskey="U">Quasi-Monte Carlo submodule (<code class="xref py py-mod docutils literal notranslate"><span class="pre">scipy.stats.qmc</span></code>)</a></li> 
+    </ul>
+              
+              
+    <ul class="nav nav-pills pull-right">
+      <li class="active">
+        <a href="../genindex.html" title="General Index"
+           accesskey="I">index</a>
+      </li>
+      <li class="active">
+        <a href="../py-modindex.html" title="Python Module Index"
+           >modules</a>
+      </li>
+      <li class="active">
+        <a href="scipy.stats.qmc.QMCEngine.fast_forward.html" title="scipy.stats.qmc.QMCEngine.fast_forward"
+           accesskey="N">next</a>
+      </li>
+      <li class="active">
+        <a href="../stats.qmc.html" title="Quasi-Monte Carlo submodule (scipy.stats.qmc)"
+           accesskey="P">previous</a>
+      </li>
+    </ul>
+              
+	    </div>
+	  </div>
+	</div>
+        
+
+	<div class="row-fluid">
+          <div class="span9">
+            
+        <div class="bodywrapper">
+          <div class="body" id="spc-section-body">
+            
+  <div class="section" id="scipy-stats-qmc-qmcengine">
+<h1>scipy.stats.qmc.QMCEngine<a class="headerlink" href="#scipy-stats-qmc-qmcengine" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="scipy.stats.qmc.QMCEngine">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">scipy.stats.qmc.</span></code><code class="sig-name descname"><span class="pre">QMCEngine</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/scipy/scipy/blob/5ac5f63/scipy/stats/_qmc.py#L514-L655"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scipy.stats.qmc.QMCEngine" title="Permalink to this definition">¶</a></dt>
+<dd><p>A generic Quasi-Monte Carlo sampler class meant for subclassing.</p>
+<p>QMCEngine is a base class to construct a specific Quasi-Monte Carlo
+sampler. It cannot be used directly as a sampler.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>d</strong><span class="classifier">int</span></dt><dd><p>Dimension of the parameter space.</p>
+</dd>
+<dt><strong>seed</strong><span class="classifier">{None, int, <a class="reference external" href="https://numpy.org/devdocs/reference/random/generator.html#numpy.random.Generator" title="(in NumPy v1.21.dev0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.random.Generator</span></code></a>}, optional</span></dt><dd><p>If <em class="xref py py-obj">seed</em> is None the <a class="reference external" href="https://numpy.org/devdocs/reference/random/generator.html#numpy.random.Generator" title="(in NumPy v1.21.dev0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.random.Generator</span></code></a> singleton is used.
+If <em class="xref py py-obj">seed</em> is an int, a new <code class="docutils literal notranslate"><span class="pre">Generator</span></code> instance is used,
+seeded with <em class="xref py py-obj">seed</em>.
+If <em class="xref py py-obj">seed</em> is already a <code class="docutils literal notranslate"><span class="pre">Generator</span></code> instance then that instance is
+used.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>By convention samples are distributed over the half-open interval
+<code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">1)</span></code>. Instances of the class can access the attributes: <code class="docutils literal notranslate"><span class="pre">d</span></code> for
+the dimension; and <code class="docutils literal notranslate"><span class="pre">rng</span></code> for the random number generator (used for the
+<code class="docutils literal notranslate"><span class="pre">seed</span></code>).</p>
+<p><strong>Subclassing</strong></p>
+<p>When subclassing <a class="reference internal" href="#scipy.stats.qmc.QMCEngine" title="scipy.stats.qmc.QMCEngine"><code class="xref py py-obj docutils literal notranslate"><span class="pre">QMCEngine</span></code></a> to create a new sampler,  <code class="docutils literal notranslate"><span class="pre">__init__</span></code> and
+<code class="docutils literal notranslate"><span class="pre">random</span></code> must be redefined.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">__init__(d,</span> <span class="pre">seed=None)</span></code>: at least fix the dimension. If the sampler
+does not take advantage of a <code class="docutils literal notranslate"><span class="pre">seed</span></code> (deterministic methods like
+Halton), this parameter can be omitted.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">random(n)</span></code>: draw <code class="docutils literal notranslate"><span class="pre">n</span></code> from the engine.</p></li>
+</ul>
+<p>Optionally, two other methods can be overwritten by subclasses:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">reset</span></code>: Reset the engine to it’s original state.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fast_forward</span></code>: If the sequence is deterministic (like Halton
+sequence), then <code class="docutils literal notranslate"><span class="pre">fast_forward(n)</span></code> is skipping the <code class="docutils literal notranslate"><span class="pre">n</span></code> first draw.</p></li>
+</ul>
+<p class="rubric">Examples</p>
+<p>To create a random sampler based on <code class="docutils literal notranslate"><span class="pre">np.random.random</span></code>, we would do the
+following:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">qmc</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">RandomEngine</span><span class="p">(</span><span class="n">qmc</span><span class="o">.</span><span class="n">QMCEngine</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">seed</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">d</span><span class="o">=</span><span class="n">d</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="bp">self</span><span class="o">.</span><span class="n">rng_seed</span> <span class="o">=</span> <span class="n">seed</span>
+<span class="gp">...</span>
+<span class="gp">...</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">random</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="p">))</span>
+<span class="gp">...</span>
+<span class="gp">...</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">d</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rng_seed</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="bp">self</span>
+<span class="gp">...</span>
+<span class="gp">...</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">fast_forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="bp">self</span><span class="o">.</span><span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="p">))</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="bp">self</span>
+</pre></div>
+</div>
+<p>After subclassing <a class="reference internal" href="#scipy.stats.qmc.QMCEngine" title="scipy.stats.qmc.QMCEngine"><code class="xref py py-obj docutils literal notranslate"><span class="pre">QMCEngine</span></code></a> to define the sampling strategy we want to
+use, we can create an instance to sample from.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">engine</span> <span class="o">=</span> <span class="n">RandomEngine</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">12345</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">engine</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="go">array([[0.22733602, 0.31675834],</span>
+<span class="go">       [0.79736546, 0.67625467],</span>
+<span class="go">       [0.39110955, 0.33281393],</span>
+<span class="go">       [0.59830875, 0.18673419],</span>
+<span class="go">       [0.67275604, 0.94180287]])</span>
+</pre></div>
+</div>
+<p>We can also reset the state of the generator and resample again.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">_</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">engine</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="go">array([[0.22733602, 0.31675834],</span>
+<span class="go">       [0.79736546, 0.67625467],</span>
+<span class="go">       [0.39110955, 0.33281393],</span>
+<span class="go">       [0.59830875, 0.18673419],</span>
+<span class="go">       [0.67275604, 0.94180287]])</span>
+</pre></div>
+</div>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="scipy.stats.qmc.QMCEngine.fast_forward.html#scipy.stats.qmc.QMCEngine.fast_forward" title="scipy.stats.qmc.QMCEngine.fast_forward"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fast_forward</span></code></a>(n)</p></td>
+<td><p>Fast-forward the sequence by <em class="xref py py-obj">n</em> positions.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="scipy.stats.qmc.QMCEngine.random.html#scipy.stats.qmc.QMCEngine.random" title="scipy.stats.qmc.QMCEngine.random"><code class="xref py py-obj docutils literal notranslate"><span class="pre">random</span></code></a>([n])</p></td>
+<td><p>Draw <em class="xref py py-obj">n</em> in the half-open interval <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">1)</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="scipy.stats.qmc.QMCEngine.reset.html#scipy.stats.qmc.QMCEngine.reset" title="scipy.stats.qmc.QMCEngine.reset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset</span></code></a>()</p></td>
+<td><p>Reset the engine to base state.</p></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+          </div>
+      <div class="spc-rightsidebar span3">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../stats.qmc.html"
+                        title="previous chapter">Quasi-Monte Carlo submodule (<code class="xref py py-mod docutils literal notranslate"><span class="pre">scipy.stats.qmc</span></code>)</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="scipy.stats.qmc.QMCEngine.fast_forward.html"
+                        title="next chapter">scipy.stats.qmc.QMCEngine.fast_forward</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h4>Quick search</h4>
+    <div>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" style="width: inherit;" name="q" />
+      <input type="submit" value="search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container container-navbar-bottom">
+      <div class="spc-navbar">
+        
+      </div>
+    </div>
+    <div class="container">
+    <div class="footer">
+    <div class="row-fluid">
+    <ul class="inline pull-left">
+      <li>
+        &copy; Copyright 2008-2021, The SciPy community.
+      </li>
+      <li>
+      Last updated on Feb 20, 2021.
+      </li>
+      <li>
+      Created using <a href="https://www.sphinx-doc.org">Sphinx</a> 3.5.1.
+      </li>
+    </ul>
+    </div>
+    </div>
+    </div>
+  </body>
+</html>

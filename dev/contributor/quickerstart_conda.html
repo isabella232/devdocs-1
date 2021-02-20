@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>Development environment quickerstart guide (Linux and Mac) &mdash; SciPy v1.7.0.dev0+5ac5f63 Reference Guide</title>
+    
+    <link rel="stylesheet" type="text/css" href="../../_static/css/spc-bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../../_static/css/spc-extend.css">
+    <link rel="stylesheet" href="../../_static/scipy.css" type="text/css" >
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" >
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/js/copybutton.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" >
+    <link rel="search" title="Search" href="../../search.html" >
+    <link rel="top" title="SciPy v1.7.0.dev0+5ac5f63 Reference Guide" href="../../index.html" >
+    <link rel="next" title="SciPy contributor guide" href="contributor_toc.html" >
+    <link rel="prev" title="Ways to Contribute" href="../../hacking.html" > 
+  </head>
+  <body>
+
+<div class="container">
+  <div class="top-scipy-org-logo-header">
+    <a href="../../index.html">
+      <img style="border: 0;" alt="SciPy" src="../../_static/img/scipy_org_logo.png"></a>
+    </div>
+  </div>
+</div>
+
+
+    <div class="container">
+      <div class="main">
+        
+	<div class="row-fluid">
+	  <div class="span12">
+	    <div class="spc-navbar">
+              
+    <ul class="nav nav-pills pull-left">
+        <li class="active"><a href="https://scipy.org/">SciPy.org</a></li>
+        <li class="active"><a href="https://docs.scipy.org/">Docs</a></li>
+	
+        <li class="active"><a href="../../index.html">SciPy v1.7.0.dev0+5ac5f63 Reference Guide</a></li>
+	 
+    </ul>
+              
+              
+    <ul class="nav nav-pills pull-right">
+      <li class="active">
+        <a href="../../genindex.html" title="General Index"
+           accesskey="I">index</a>
+      </li>
+      <li class="active">
+        <a href="../../py-modindex.html" title="Python Module Index"
+           >modules</a>
+      </li>
+      <li class="active">
+        <a href="contributor_toc.html" title="SciPy contributor guide"
+           accesskey="N">next</a>
+      </li>
+      <li class="active">
+        <a href="../../hacking.html" title="Ways to Contribute"
+           accesskey="P">previous</a>
+      </li>
+    </ul>
+              
+	    </div>
+	  </div>
+	</div>
+        
+
+	<div class="row-fluid">
+          <div class="span9">
+            
+        <div class="bodywrapper">
+          <div class="body" id="spc-section-body">
+            
+  <div class="section" id="development-environment-quickerstart-guide-linux-and-mac">
+<span id="quickerstart-conda"></span><h1>Development environment quickerstart guide (Linux and Mac)<a class="headerlink" href="#development-environment-quickerstart-guide-linux-and-mac" title="Permalink to this headline">¶</a></h1>
+<p>With <a class="reference external" href="https://www.anaconda.com/products/individual">Anaconda</a> (and, on macOS,
+the <a class="reference external" href="https://webkit.org/build-tools/">Xcode Command Line Tools</a>) installed,
+execute the following commands at the terminal from the base directory of
+your <a class="reference external" href="https://github.com/scipy/scipy">SciPy</a> clone:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Best practice, use an environment rather than install in the base env</span>
+<span class="n">conda</span> <span class="n">create</span> <span class="o">-</span><span class="n">n</span> <span class="n">my</span><span class="o">-</span><span class="n">env</span>
+<span class="n">conda</span> <span class="n">activate</span> <span class="n">my</span><span class="o">-</span><span class="n">env</span>
+
+<span class="c1"># Prefer conda-forge (because it has the compilers we need)</span>
+<span class="n">conda</span> <span class="n">config</span> <span class="o">--</span><span class="n">env</span> <span class="o">--</span><span class="n">add</span> <span class="n">channels</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span>
+
+<span class="c1"># Now install all packages that are needed in one `conda install` command</span>
+<span class="n">conda</span> <span class="n">install</span> <span class="n">python</span><span class="o">=</span><span class="mf">3.8</span> <span class="n">numpy</span> <span class="n">pybind11</span> <span class="n">cython</span> <span class="n">pytest</span> <span class="n">sphinx</span> <span class="n">matplotlib</span> <span class="n">mypy</span> <span class="n">compilers</span>
+
+<span class="c1"># Build SciPy for development work plus run tests</span>
+<span class="n">python</span> <span class="n">runtests</span><span class="o">.</span><span class="n">py</span>    <span class="c1"># Alternatively, it&#39;s fine to use `python setup.py develop`</span>
+</pre></div>
+</div>
+<p>For more detailed instructions, see the other <a class="reference internal" href="contributor_toc.html#dev-env"><span class="std std-ref">Development environment</span></a> guides.</p>
+</div>
+
+
+          </div>
+        </div>
+          </div>
+      <div class="spc-rightsidebar span3">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../../hacking.html"
+                        title="previous chapter">Ways to Contribute</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="contributor_toc.html"
+                        title="next chapter">SciPy contributor guide</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h4>Quick search</h4>
+    <div>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" style="width: inherit;" name="q" />
+      <input type="submit" value="search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container container-navbar-bottom">
+      <div class="spc-navbar">
+        
+      </div>
+    </div>
+    <div class="container">
+    <div class="footer">
+    <div class="row-fluid">
+    <ul class="inline pull-left">
+      <li>
+        &copy; Copyright 2008-2021, The SciPy community.
+      </li>
+      <li>
+      Last updated on Feb 20, 2021.
+      </li>
+      <li>
+      Created using <a href="https://www.sphinx-doc.org">Sphinx</a> 3.5.1.
+      </li>
+    </ul>
+    </div>
+    </div>
+    </div>
+  </body>
+</html>

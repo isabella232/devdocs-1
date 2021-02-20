@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>quadratic_assignment(method=’2opt’) &mdash; SciPy v1.7.0.dev0+5ac5f63 Reference Guide</title>
+    
+    <link rel="stylesheet" type="text/css" href="_static/css/spc-bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="_static/css/spc-extend.css">
+    <link rel="stylesheet" href="_static/scipy.css" type="text/css" >
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" >
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/scipy-mathjax/MathJax.js?config=scipy-mathjax"></script>
+    <script type="text/javascript" src="_static/js/copybutton.js"></script>
+    <link rel="index" title="Index" href="genindex.html" >
+    <link rel="search" title="Search" href="search.html" >
+    <link rel="top" title="SciPy v1.7.0.dev0+5ac5f63 Reference Guide" href="index.html" >
+    <link rel="up" title="Optimization and root finding (scipy.optimize)" href="optimize.html" >
+    <link rel="next" title="scipy.optimize.approx_fprime" href="generated/scipy.optimize.approx_fprime.html" >
+    <link rel="prev" title="quadratic_assignment(method=’faq’)" href="optimize.qap-faq.html" > 
+  </head>
+  <body>
+
+<div class="container">
+  <div class="top-scipy-org-logo-header">
+    <a href="index.html">
+      <img style="border: 0;" alt="SciPy" src="_static/img/scipy_org_logo.png"></a>
+    </div>
+  </div>
+</div>
+
+
+    <div class="container">
+      <div class="main">
+        
+	<div class="row-fluid">
+	  <div class="span12">
+	    <div class="spc-navbar">
+              
+    <ul class="nav nav-pills pull-left">
+        <li class="active"><a href="https://scipy.org/">SciPy.org</a></li>
+        <li class="active"><a href="https://docs.scipy.org/">Docs</a></li>
+	
+        <li class="active"><a href="index.html">SciPy v1.7.0.dev0+5ac5f63 Reference Guide</a></li>
+	
+          <li class="active"><a href="optimize.html" accesskey="U">Optimization and root finding (<code class="xref py py-mod docutils literal notranslate"><span class="pre">scipy.optimize</span></code>)</a></li> 
+    </ul>
+              
+              
+    <ul class="nav nav-pills pull-right">
+      <li class="active">
+        <a href="genindex.html" title="General Index"
+           accesskey="I">index</a>
+      </li>
+      <li class="active">
+        <a href="py-modindex.html" title="Python Module Index"
+           >modules</a>
+      </li>
+      <li class="active">
+        <a href="generated/scipy.optimize.approx_fprime.html" title="scipy.optimize.approx_fprime"
+           accesskey="N">next</a>
+      </li>
+      <li class="active">
+        <a href="optimize.qap-faq.html" title="quadratic_assignment(method=’faq’)"
+           accesskey="P">previous</a>
+      </li>
+    </ul>
+              
+	    </div>
+	  </div>
+	</div>
+        
+
+	<div class="row-fluid">
+          <div class="span9">
+            
+        <div class="bodywrapper">
+          <div class="body" id="spc-section-body">
+            
+  <div class="section" id="quadratic-assignment-method-2opt">
+<span id="optimize-qap-2opt"></span><h1>quadratic_assignment(method=’2opt’)<a class="headerlink" href="#quadratic-assignment-method-2opt" title="Permalink to this headline">¶</a></h1>
+<dl class="scipy-optimize function">
+<dt>
+<code class="sig-prename descclassname"><span class="pre">scipy.optimize.</span></code><code class="sig-name descname"><span class="pre">quadratic_assignment</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'2opt'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{'maximize':</span> <span class="pre">False,</span> <span class="pre">'rng':</span> <span class="pre">None,</span> <span class="pre">'partial_match':</span> <span class="pre">None,</span> <span class="pre">'partial_guess':</span> <span class="pre">None}</span></span></em><span class="sig-paren">)</span></dt>
+<dd><p>Solve the quadratic assignment problem (approximately).</p>
+<p>This function solves the Quadratic Assignment Problem (QAP) and the
+Graph Matching Problem (GMP) using the 2-opt algorithm <a class="reference internal" href="#r6a06a173f34a-1" id="id1">[1]</a>.</p>
+<p>Quadratic assignment solves problems of the following form:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\min_P &amp; \ {\ \text{trace}(A^T P B P^T)}\\
+\mbox{s.t. } &amp; {P \ \epsilon \ \mathcal{P}}\\\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathcal{P}\)</span> is the set of all permutation matrices,
+and <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> are square matrices.</p>
+<p>Graph matching tries to <em>maximize</em> the same objective function.
+This algorithm can be thought of as finding the alignment of the
+nodes of two graphs that minimizes the number of induced edge
+disagreements, or, in the case of weighted graphs, the sum of squared
+edge weight differences.</p>
+<p>Note that the quadratic assignment problem is NP-hard. The results given
+here are approximations and are not guaranteed to be optimal.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>A</strong><span class="classifier">2-D array, square</span></dt><dd><p>The square matrix <span class="math notranslate nohighlight">\(A\)</span> in the objective function above.</p>
+</dd>
+<dt><strong>B</strong><span class="classifier">2-D array, square</span></dt><dd><p>The square matrix <span class="math notranslate nohighlight">\(B\)</span> in the objective function above.</p>
+</dd>
+<dt><strong>method</strong><span class="classifier">str in {‘faq’, ‘2opt’} (default: ‘faq’)</span></dt><dd><p>The algorithm used to solve the problem. This is the method-specific
+documentation for ‘2opt’.
+<a class="reference internal" href="optimize.qap-faq.html#optimize-qap-faq"><span class="std std-ref">‘faq’</span></a> is also available.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl>
+<dt><strong>res</strong><span class="classifier">OptimizeResult</span></dt><dd><p><a class="reference internal" href="generated/scipy.optimize.OptimizeResult.html#scipy.optimize.OptimizeResult" title="scipy.optimize.OptimizeResult"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OptimizeResult</span></code></a> containing the following fields.</p>
+<dl class="simple">
+<dt>col_ind<span class="classifier">1-D array</span></dt><dd><p>Column indices corresponding to the best permutation found of the
+nodes of <em class="xref py py-obj">B</em>.</p>
+</dd>
+<dt>fun<span class="classifier">float</span></dt><dd><p>The objective value of the solution.</p>
+</dd>
+<dt>nit<span class="classifier">int</span></dt><dd><p>The number of iterations performed during optimization.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>For documentation for the rest of the parameters, see <a class="reference internal" href="generated/scipy.optimize.quadratic_assignment.html#scipy.optimize.quadratic_assignment" title="scipy.optimize.quadratic_assignment"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scipy.optimize.quadratic_assignment</span></code></a></p>
+</div>
+<dl class="field-list">
+<dt class="field-odd">Options</dt>
+<dd class="field-odd"><dl>
+<dt><strong>maximize</strong><span class="classifier">bool (default: False)</span></dt><dd><p>Maximizes the objective function if <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
+</dd>
+<dt><strong>rng</strong><span class="classifier">int, <em class="xref py py-obj">RandomState</em>, <em class="xref py py-obj">Generator</em> or None, optional (default: None)</span></dt><dd><p>Accepts an integer as a seed for the random generator or a
+<code class="docutils literal notranslate"><span class="pre">RandomState</span></code> or <code class="docutils literal notranslate"><span class="pre">Generator</span></code> object. If None (default), uses
+global <a class="reference external" href="https://numpy.org/devdocs/reference/random/index.html#module-numpy.random" title="(in NumPy v1.21.dev0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.random</span></code></a> random state.</p>
+</dd>
+<dt><strong>partial_match</strong><span class="classifier">2-D array of integers, optional (default: None)</span></dt><dd><p>Fixes part of the matching. Also known as a “seed” <a class="reference internal" href="#r6a06a173f34a-2" id="id2">[2]</a>.</p>
+<p>Each row of <em class="xref py py-obj">partial_match</em> specifies a pair of matched nodes: node
+<code class="docutils literal notranslate"><span class="pre">partial_match[i,</span> <span class="pre">0]</span></code> of <em class="xref py py-obj">A</em> is matched to node
+<code class="docutils literal notranslate"><span class="pre">partial_match[i,</span> <span class="pre">1]</span></code> of <em class="xref py py-obj">B</em>. The array has shape <code class="docutils literal notranslate"><span class="pre">(m,</span> <span class="pre">2)</span></code>,
+where <code class="docutils literal notranslate"><span class="pre">m</span></code> is not greater than the number of nodes, <span class="math notranslate nohighlight">\(n\)</span>.</p>
+</dd>
+<dt><strong>partial_guess</strong><span class="classifier">2-D array of integers, optional (default: None)</span></dt><dd><p>A guess for the matching between the two matrices. Unlike
+<em class="xref py py-obj">partial_match</em>, <em class="xref py py-obj">partial_guess</em> does not fix the indices; they are
+still free to be optimized.</p>
+<p>Each row of <em class="xref py py-obj">partial_guess</em> specifies a pair of matched nodes: node
+<code class="docutils literal notranslate"><span class="pre">partial_guess[i,</span> <span class="pre">0]</span></code> of <em class="xref py py-obj">A</em> is matched to node
+<code class="docutils literal notranslate"><span class="pre">partial_guess[i,</span> <span class="pre">1]</span></code> of <em class="xref py py-obj">B</em>. The array has shape <code class="docutils literal notranslate"><span class="pre">(m,</span> <span class="pre">2)</span></code>,
+where <code class="docutils literal notranslate"><span class="pre">m</span></code> is not greater than the number of nodes, <span class="math notranslate nohighlight">\(n\)</span>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This is a greedy algorithm that works similarly to bubble sort: beginning
+with an initial permutation, it iteratively swaps pairs of indices to
+improve the objective function until no such improvements are possible.</p>
+<p class="rubric">References</p>
+<dl class="citation">
+<dt class="label" id="r6a06a173f34a-1"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>“2-opt,” Wikipedia.
+<a class="reference external" href="https://en.wikipedia.org/wiki/2-opt">https://en.wikipedia.org/wiki/2-opt</a></p>
+</dd>
+<dt class="label" id="r6a06a173f34a-2"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>D. Fishkind, S. Adali, H. Patsolic, L. Meng, D. Singh, V. Lyzinski,
+C. Priebe, “Seeded graph matching”, Pattern Recognit. 87 (2019):
+203-215, <a class="reference external" href="https://doi.org/10.1016/j.patcog.2018.09.014">https://doi.org/10.1016/j.patcog.2018.09.014</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+          </div>
+      <div class="spc-rightsidebar span3">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="optimize.qap-faq.html"
+                        title="previous chapter">quadratic_assignment(method=’faq’)</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="generated/scipy.optimize.approx_fprime.html"
+                        title="next chapter">scipy.optimize.approx_fprime</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h4>Quick search</h4>
+    <div>
+    <form class="search" action="search.html" method="get">
+      <input type="text" style="width: inherit;" name="q" />
+      <input type="submit" value="search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container container-navbar-bottom">
+      <div class="spc-navbar">
+        
+      </div>
+    </div>
+    <div class="container">
+    <div class="footer">
+    <div class="row-fluid">
+    <ul class="inline pull-left">
+      <li>
+        &copy; Copyright 2008-2021, The SciPy community.
+      </li>
+      <li>
+      Last updated on Feb 20, 2021.
+      </li>
+      <li>
+      Created using <a href="https://www.sphinx-doc.org">Sphinx</a> 3.5.1.
+      </li>
+    </ul>
+    </div>
+    </div>
+    </div>
+  </body>
+</html>

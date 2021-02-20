@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>scipy.signal.gauss_spline &mdash; SciPy v1.7.0.dev0+5ac5f63 Reference Guide</title>
+    
+    <link rel="stylesheet" type="text/css" href="../_static/css/spc-bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../_static/css/spc-extend.css">
+    <link rel="stylesheet" href="../_static/scipy.css" type="text/css" >
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" >
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/scipy-mathjax/MathJax.js?config=scipy-mathjax"></script>
+    <script type="text/javascript" src="../_static/js/copybutton.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" >
+    <link rel="search" title="Search" href="../search.html" >
+    <link rel="top" title="SciPy v1.7.0.dev0+5ac5f63 Reference Guide" href="../index.html" >
+    <link rel="up" title="Signal processing (scipy.signal)" href="../signal.html" >
+    <link rel="next" title="scipy.signal.cspline1d" href="scipy.signal.cspline1d.html" >
+    <link rel="prev" title="scipy.signal.quadratic" href="scipy.signal.quadratic.html" > 
+  </head>
+  <body>
+
+<div class="container">
+  <div class="top-scipy-org-logo-header">
+    <a href="../index.html">
+      <img style="border: 0;" alt="SciPy" src="../_static/img/scipy_org_logo.png"></a>
+    </div>
+  </div>
+</div>
+
+
+    <div class="container">
+      <div class="main">
+        
+	<div class="row-fluid">
+	  <div class="span12">
+	    <div class="spc-navbar">
+              
+    <ul class="nav nav-pills pull-left">
+        <li class="active"><a href="https://scipy.org/">SciPy.org</a></li>
+        <li class="active"><a href="https://docs.scipy.org/">Docs</a></li>
+	
+        <li class="active"><a href="../index.html">SciPy v1.7.0.dev0+5ac5f63 Reference Guide</a></li>
+	
+          <li class="active"><a href="../signal.html" accesskey="U">Signal processing (<code class="xref py py-mod docutils literal notranslate"><span class="pre">scipy.signal</span></code>)</a></li> 
+    </ul>
+              
+              
+    <ul class="nav nav-pills pull-right">
+      <li class="active">
+        <a href="../genindex.html" title="General Index"
+           accesskey="I">index</a>
+      </li>
+      <li class="active">
+        <a href="../py-modindex.html" title="Python Module Index"
+           >modules</a>
+      </li>
+      <li class="active">
+        <a href="scipy.signal.cspline1d.html" title="scipy.signal.cspline1d"
+           accesskey="N">next</a>
+      </li>
+      <li class="active">
+        <a href="scipy.signal.quadratic.html" title="scipy.signal.quadratic"
+           accesskey="P">previous</a>
+      </li>
+    </ul>
+              
+	    </div>
+	  </div>
+	</div>
+        
+
+	<div class="row-fluid">
+          <div class="span9">
+            
+        <div class="bodywrapper">
+          <div class="body" id="spc-section-body">
+            
+  <div class="section" id="scipy-signal-gauss-spline">
+<h1>scipy.signal.gauss_spline<a class="headerlink" href="#scipy-signal-gauss-spline" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt id="scipy.signal.gauss_spline">
+<code class="sig-prename descclassname"><span class="pre">scipy.signal.</span></code><code class="sig-name descname"><span class="pre">gauss_spline</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/scipy/scipy/blob/5ac5f63/scipy/signal/bsplines.py#L192-L241"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scipy.signal.gauss_spline" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gaussian approximation to B-spline basis function of order n.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>x</strong><span class="classifier">array</span></dt><dd><p>a knot vector</p>
+</dd>
+<dt><strong>n</strong><span class="classifier">int</span></dt><dd><p>The order of the spline. Must be non-negative, i.e., n &gt;= 0</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>res</strong><span class="classifier">ndarray</span></dt><dd><p>B-spline basis function values approximated by a zero-mean Gaussian
+function.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The B-spline basis function can be approximated well by a zero-mean
+Gaussian function with standard-deviation equal to <span class="math notranslate nohighlight">\(\sigma=(n+1)/12\)</span>
+for large <em class="xref py py-obj">n</em> :</p>
+<div class="math notranslate nohighlight">
+\[\frac{1}{\sqrt {2\pi\sigma^2}}exp(-\frac{x^2}{2\sigma})\]</div>
+<p class="rubric">References</p>
+<dl class="citation">
+<dt class="label" id="r9864b148aa3f-1"><span class="brackets">1</span></dt>
+<dd><p>Bouma H., Vilanova A., Bescos J.O., ter Haar Romeny B.M., Gerritsen
+F.A. (2007) Fast and Accurate Gaussian Derivatives Based on B-Splines. In:
+Sgallari F., Murli A., Paragios N. (eds) Scale Space and Variational
+Methods in Computer Vision. SSVM 2007. Lecture Notes in Computer
+Science, vol 4485. Springer, Berlin, Heidelberg</p>
+</dd>
+<dt class="label" id="r9864b148aa3f-2"><span class="brackets">2</span></dt>
+<dd><p><a class="reference external" href="http://folk.uio.no/inf3330/scripting/doc/python/SciPy/tutorial/old/node24.html">http://folk.uio.no/inf3330/scripting/doc/python/SciPy/tutorial/old/node24.html</a></p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>We can calculate B-Spline basis functions approximated by a gaussian
+distribution:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scipy.signal</span> <span class="kn">import</span> <span class="n">gauss_spline</span><span class="p">,</span> <span class="n">bspline</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">knots</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gauss_spline</span><span class="p">(</span><span class="n">knots</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="go">array([0.15418033, 0.6909883, 0.15418033])  # may vary</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bspline</span><span class="p">(</span><span class="n">knots</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="go">array([0.16666667, 0.66666667, 0.16666667])  # may vary</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+          </div>
+      <div class="spc-rightsidebar span3">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="scipy.signal.quadratic.html"
+                        title="previous chapter">scipy.signal.quadratic</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="scipy.signal.cspline1d.html"
+                        title="next chapter">scipy.signal.cspline1d</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h4>Quick search</h4>
+    <div>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" style="width: inherit;" name="q" />
+      <input type="submit" value="search" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container container-navbar-bottom">
+      <div class="spc-navbar">
+        
+      </div>
+    </div>
+    <div class="container">
+    <div class="footer">
+    <div class="row-fluid">
+    <ul class="inline pull-left">
+      <li>
+        &copy; Copyright 2008-2021, The SciPy community.
+      </li>
+      <li>
+      Last updated on Feb 20, 2021.
+      </li>
+      <li>
+      Created using <a href="https://www.sphinx-doc.org">Sphinx</a> 3.5.1.
+      </li>
+    </ul>
+    </div>
+    </div>
+    </div>
+  </body>
+</html>
